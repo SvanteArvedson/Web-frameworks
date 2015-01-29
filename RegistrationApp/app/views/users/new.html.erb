@@ -1,0 +1,10 @@
+<h1>Create Account</h1>
+
+<!-- Add error messages here -->
+
+<%= form_for @user do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.submit "Create Account" %>
+<% end %>

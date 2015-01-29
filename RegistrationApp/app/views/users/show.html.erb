@@ -1,0 +1,16 @@
+<h1><%= @user.email %></h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Api Key</th>
+    <th></th>
+  </tr>
+  <% @applications.each do |application| %>
+  <tr>
+    <td><%= application.name %></td>
+    <td><%= application.api_key %></td>
+    <td><%= "Delete" %></td>
+  </tr>
+  <% end %>
+</table>

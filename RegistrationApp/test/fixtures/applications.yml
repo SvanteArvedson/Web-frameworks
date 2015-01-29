@@ -1,11 +1,57 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-# one: {}
-# column: value
-#
-# two: {}
-#  column: value
+one:
+  id: 1
+  user_id: 1
+  application_type_id: 1
+  name: "AppOne"
+  api_key: "Q1W2E3R4T5Y1"
+
+two:
+  id: 2
+  user_id: 1
+  application_type_id: 3
+  name: "AppTwo"
+  api_key: "Q1W2E3R4T5Y2"
+
+three:
+  id: 3
+  user_id: 2
+  application_type_id: 1
+  name: "AppThree"
+  api_key: "Q1W2E3R4T5Y3"
+  
+four:
+  id: 4
+  user_id: 2
+  application_type_id: 2
+  name: "AppFour"
+  api_key: "Q1W2E3R4T5Y4"
+  
+five:
+  id: 5
+  user_id: 3
+  application_type_id: 1
+  name: "AppFive"
+  api_key: "Q1W2E3R4T5Y5"
+
+six:
+  id: 6
+  user_id: 3
+  application_type_id: 3
+  name: "AppSix"
+  api_key: "Q1W2E3R4T5Y6"
+
+seven:
+  id: 7
+  user_id: 4
+  application_type_id: 1
+  name: "AppSeven"
+  api_key: "Q1W2E3R4T5Y7"
+  
+eight:
+  id: 8
+  user_id: 4
+  application_type_id: 2
+  name: "AppEight"
+  api_key: "Q1W2E3R4T5Y8"
