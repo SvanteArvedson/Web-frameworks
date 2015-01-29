@@ -8,7 +8,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "GET /users/:id should show one user" do
+  test "GET /users/1 should show user with id 1" do
     assert_routing '/users/1', { controller: "users", action: "show", id: "1" }
     get :show, { id: "1" }
     assert_response :success
@@ -22,7 +22,14 @@ class UsersControllerTest < ActionController::TestCase
   
   test "POST /users should go to contoller users#create" do
     assert_routing({ method: 'post', path: '/users' }, { controller: "users", action: "create" })
-    post :create
+    post :create, { user: { email: "email@example.com" } }
+    assert_response :redirect
+  end
+  
+  test "DELETE /users/:id should destroy user with id 1" do
+    assert_routing({ method: 'delete', path: '/users/1' }, { controller: "users", action: "destroy", id: "1" })
+    delete :destroy, { id: "1" }
+    assert_response :redirect
   end
   
 end

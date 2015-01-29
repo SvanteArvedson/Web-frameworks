@@ -1,16 +1,22 @@
 <h1><%= @user.email %></h1>
 
+<div><%= link_to "List all users", users_path %></div>
+<div><%= link_to "Create new application", new_user_application_path(@user) %></div>
+
 <table>
   <tr>
     <th>Name</th>
+    <th>Type</th>
     <th>Api Key</th>
     <th></th>
   </tr>
   <% @applications.each do |application| %>
   <tr>
     <td><%= application.name %></td>
+    <td><%= application.application_type.name %></td>
     <td><%= application.api_key %></td>
     <td><%= "Delete" %></td>
   </tr>
   <% end %>
 </table>
+

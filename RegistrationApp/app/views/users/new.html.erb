@@ -1,6 +1,14 @@
 <h1>Create Account</h1>
 
-<!-- Add error messages here -->
+<%= link_to "List all users", users_path %>
+
+<% if @user.errors.full_messages.any? %>
+<ul>
+  <% @user.errors.full_messages.each do |error_message| %>
+  <li><%= error_message %></li>
+  <% end %>
+</ul>
+<% end %>
 
 <%= form_for @user do |f| %>
   <%= f.label :email %>
