@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128211654) do
+ActiveRecord::Schema.define(version: 20150127222511) do
 
   create_table "application_types", force: true do |t|
     t.string   "name",       limit: 20, null: false
@@ -31,7 +31,8 @@ ActiveRecord::Schema.define(version: 20150128211654) do
   add_index "applications", ["api_key"], name: "index_applications_on_api_key", unique: true
 
   create_table "users", force: true do |t|
-    t.string   "email",      limit: 254, null: false
+    t.string   "password_digest",             null: false
+    t.string   "email",           limit: 254, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

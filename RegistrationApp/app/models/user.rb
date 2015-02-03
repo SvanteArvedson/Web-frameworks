@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_secure_password
+  
   # Relations
   has_many :applications, dependent: :destroy
   
