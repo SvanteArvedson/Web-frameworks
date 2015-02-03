@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      # TODO: Change to login page
       redirect_to user_path(@user)
     else
       render 'new'

@@ -26,6 +26,12 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :redirect
   end
   
+  test "POST /users with wrong cresdentials should go back to users#new" do
+    assert_routing({ method: 'post', path: '/users' }, { controller: "users", action: "create" })
+    post :create, { user: { email: "user.one.example.com" } }
+    assert_response :success
+  end
+  
   test "DELETE /users/:id should destroy user with id 1" do
     assert_routing({ method: 'delete', path: '/users/1' }, { controller: "users", action: "destroy", id: "1" })
     delete :destroy, { id: "1" }

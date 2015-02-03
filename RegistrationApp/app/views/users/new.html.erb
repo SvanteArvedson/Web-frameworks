@@ -11,8 +11,12 @@
 <% end %>
 
 <%= form_for @user do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-
-  <%= f.submit "Create Account" %>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  
+  <div>
+    <%= f.submit "Create Account" %>
+  </div>
 <% end %>

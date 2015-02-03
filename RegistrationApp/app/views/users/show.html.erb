@@ -15,8 +15,10 @@
     <td><%= application.name %></td>
     <td><%= application.application_type.name %></td>
     <td><%= application.api_key %></td>
-    <td><%= "Delete" %></td>
+    <td><%=  link_to "Delete", user_application_path(@user, application) , method: :delete, data: { confirm: "Are you sure?"} %></td>
   </tr>
   <% end %>
 </table>
+
+<!-- url: { controller: "applications", action: "destroy", user_id: @user.id.to_s, id: application.id.to_s } -->
 

@@ -2,7 +2,7 @@
 
 one:
   id: 1
-  email: "user.one@examle.com"
+  email: "user.one@example.com"
 
 two:
   id: 2
@@ -10,7 +10,7 @@ two:
 
 three:
   id: 3
-  email: "user.three@examle.com"
+  email: "user.three@example.com"
 
 four:
   id: 4

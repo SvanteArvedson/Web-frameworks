@@ -1,0 +1,27 @@
+<h1>Create Application</h1>
+
+<%= link_to "Back to user page", user_path(@user) %>
+
+<% if @application.errors.full_messages.any? %>
+<ul>
+  <% @application.errors.full_messages.each do |error_message| %>
+  <li><%= error_message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= form_for @application, url: user_applications_path(@user) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :application_type_id %>
+    <%= f.select :application_type_id, options_from_collection_for_select(ApplicationType.all, :id, :name) %>
+  </div>
+
+  <div>
+    <%= f.submit "Create Application" %>
+  </div>
+<% end %>
