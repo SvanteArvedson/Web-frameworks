@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<% unless current_user.nil? %>
+  <%= link_to "Logout", logout_path %>  
+<% end %>
+  
 <%= yield %>
 
 </body>

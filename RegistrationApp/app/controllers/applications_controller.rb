@@ -1,7 +1,8 @@
 class ApplicationsController < ApplicationController
   
   def create
-    @user = User.find(params[:user_id])
+    
+    @user = current_user
     @application = Application.new(application_params)
     @application.user = @user
     
@@ -13,20 +14,22 @@ class ApplicationsController < ApplicationController
   end
   
   def destroy
+    
     @application = Application.find(params[:id])
-    @user = User.find(params[:user_id])
+    @user = current_user
     
     if @application.user.id == @user.id
       @application.destroy
       redirect_to user_path(@user), status: 303
     else
       # add flash message
-      # redirect to front page
+      redirect_to root_path
     end
   end
   
   def new
-    @user = User.find(params[:user_id])
+    
+    @user = current_user
     @application = Application.new
   end
   
