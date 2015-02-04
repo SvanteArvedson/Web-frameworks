@@ -1,24 +1,33 @@
-<h1><%= @user.email %></h1>
+<% content_for :title do %>
+<%= @user.name %>
+<% end %>
 
-<div><%= link_to "List all users", users_path %></div>
-<div><%= link_to "Create new application", new_user_application_path(@user) %></div>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <div id="nav-bar">
+      <%= link_to "List all users", users_path, class: "btn btn-default" %>
+      <%= link_to "Create new application", new_user_application_path(@user), class: "btn btn-default" %>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Api Key</th>
-    <th></th>
-  </tr>
-  <% @applications.each do |application| %>
-  <tr>
-    <td><%= application.name %></td>
-    <td><%= application.application_type.name %></td>
-    <td><%= application.api_key %></td>
-    <td><%=  link_to "Delete", user_application_path(@user, application) , method: :delete, data: { confirm: "Are you sure?"} %></td>
-  </tr>
-  <% end %>
-</table>
-
-<!-- url: { controller: "applications", action: "destroy", user_id: @user.id.to_s, id: application.id.to_s } -->
-
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Api Key</th>
+        <th></th>
+      </tr>
+      <% @applications.each do |application| %>
+      <tr>
+        <td><%= application.name %></td>
+        <td><%= application.application_type.name %></td>
+        <td><%= application.api_key %></td>
+        <td><%=  link_to "Delete", user_application_path(@user, application), class: "btn btn-primary btn-command", method: :delete, data: { confirm: "Are you sure?"} %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

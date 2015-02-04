@@ -14,9 +14,8 @@ class ApplicationsController < ApplicationController
   end
   
   def destroy
-    
     @application = Application.find(params[:id])
-    @user = current_user
+    @user = User.find(params[:user_id])
     
     if @application.user.id == @user.id
       @application.destroy
@@ -28,8 +27,7 @@ class ApplicationsController < ApplicationController
   end
   
   def new
-    
-    @user = current_user
+    @user = User.find(params[:user_id])
     @application = Application.new
   end
   

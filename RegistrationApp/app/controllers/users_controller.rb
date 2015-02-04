@@ -30,8 +30,8 @@ class UsersController < ApplicationController
   
   # shows user
   def show
-    @user = current_user
-    @applications = current_user.applications
+    @user = User.find(params[:id])
+    @applications = @user.applications
   end
   
   private

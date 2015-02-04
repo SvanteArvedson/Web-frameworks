@@ -1,6 +1,14 @@
-<h1>Register user</h1>
+<% content_for :title do %>
+Register User
+<% end %>
 
-<%= link_to "Login", login_path %>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <div id="nav-bar">
+      <%= link_to "Login", login_path, class: "btn btn-default" %>
+    </div>
+  </div>
+</div>
 
 <% if @user.errors.full_messages.any? %>
 <ul>
@@ -10,28 +18,26 @@
 </ul>
 <% end %>
 
-<%= form_for @user do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <%= form_for @user do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+      <%= f.submit "Register", class: "btn btn-primary" %>
+    <% end %>
   </div>
-
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-  
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= f.submit "Register" %>
-  </div>
-<% end %>
+</div>

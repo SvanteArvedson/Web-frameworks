@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RegistrationApp</title>
+  <title><%= yield(:title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<% unless current_user.nil? %>
-  <%= link_to "Logout", logout_path %>  
-<% end %>
-  
-<%= yield %>
-
+  <div class="container">
+    <div class="row">
+      <header class="col-xs-6 col-xs-offset-3 text-center">
+        <h1><%= yield(:title) %></h1>
+      </header>
+    </div>
+    <%= yield %>
+  </div>
 </body>
 </html>
