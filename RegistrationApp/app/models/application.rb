@@ -6,6 +6,7 @@ class Application < ActiveRecord::Base
   # Validations
   validates :name, presence: true, length: { maximum: 100 }
   validates :api_key, presence: true, uniqueness: { case_sensitive: true, message: "Api key already exists" }
+  validates :application_type, presence: true
   
   # Creates api_key if nil or empty
   after_initialize do |app|

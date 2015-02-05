@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :require_logout, only: [:create, :new]
+  before_action :require_login, only: [:destroy]
 
   def create
     user = User.find_by_email(params[:session][:email])
@@ -25,8 +26,14 @@ class SessionsController < ApplicationController
   
   def index
     if logged_in?
-      @users = User.all
-      render 'users/index'
+      if admin_logged_in?
+        @users = User.all
+        render 'users/index'
+        return
+      end
+      @user = current_user
+      @applications = @user.applications
+      render 'users/show'
     else
       render 'new'
     end

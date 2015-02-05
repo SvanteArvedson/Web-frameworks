@@ -11,11 +11,20 @@ Register User
 </div>
 
 <% if @user.errors.full_messages.any? %>
-<ul>
-  <% @user.errors.full_messages.each do |error_message| %>
-  <li><%= error_message %></li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <div class="alert alert-danger alert-dismissible fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <ul>
+        <% @user.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 <% end %>
 
 <div class="row">

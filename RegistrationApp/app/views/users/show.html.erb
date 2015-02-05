@@ -5,8 +5,11 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <div id="nav-bar">
-      <%= link_to "List all users", users_path, class: "btn btn-default" %>
+      <% if admin_logged_in? %>
+        <%= link_to "All users", users_path, class: "btn btn-default" %>
+      <% end %>
       <%= link_to "Create new application", new_user_application_path(@user), class: "btn btn-default" %>
+      <%= link_to "Log out", logout_path, class: "btn btn-default" %>
     </div>
   </div>
 </div>

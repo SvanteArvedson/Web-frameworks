@@ -6,16 +6,26 @@ Create Application
   <div class="col-xs-6 col-xs-offset-3">
     <div id="nav-bar">
       <%= link_to "Back to user page", user_path(@user), class: "btn btn-default" %>
+      <%= link_to "Log out", logout_path, class: "btn btn-default" %>
     </div>
   </div>
 </div>
 
 <% if @application.errors.full_messages.any? %>
-<ul>
-  <% @application.errors.full_messages.each do |error_message| %>
-  <li><%= error_message %></li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <div class="alert alert-danger alert-dismissible fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <ul>
+        <% @application.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 <% end %>
 
 <div class="row">

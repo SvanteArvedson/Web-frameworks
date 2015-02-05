@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:index]
-  before_action :require_logout, only: [:new]
+  before_action :require_login, only: [:destroy, :index, :show]
+  before_action :require_logout, only: [:new, :create]
   
   # creates new user
   def create
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   
   # lists all users
   def index
-    @users = User.all
+    require_admin_login
+    @users = User.where(admin: false)
   end
   
   # renders new user form
@@ -32,7 +33,8 @@ class UsersController < ApplicationController
   
   # shows user
   def show
-    @user = User.find(params[:id])
+    require_admin_or_user_login_by(params[:id])
+    @user = User.find(params[:id])    
     @applications = @user.applications
   end
   
