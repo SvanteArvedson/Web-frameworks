@@ -22,13 +22,13 @@ class UsersControllerTest < ActionController::TestCase
   
   test "POST /users should go to contoller users#create" do
     assert_routing({ method: 'post', path: '/users' }, { controller: "users", action: "create" })
-    post :create, { user: { email: "email@example.com" } }
+    post :create, { user: { name: "NewUser", email: "email@example.com", password: "hemligt", password_confirmation: "hemligt" } }
     assert_response :redirect
   end
   
-  test "POST /users with wrong cresdentials should go back to users#new" do
+  test "POST /users with wrong credentials should go back to users#new" do
     assert_routing({ method: 'post', path: '/users' }, { controller: "users", action: "create" })
-    post :create, { user: { email: "user.one.example.com" } }
+    post :create, { user: { name: "NewUser", email: "email@example.com", password: "hemligt", password_confirmation: "annorlunda" } }
     assert_response :success
   end
   

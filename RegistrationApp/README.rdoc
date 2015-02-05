@@ -1,28 +1,18 @@
-== README
+# Inför peer review
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Kör applikationen
+För att köra applikationen så:
+<ul>
+  <li>Ladda ner koden till din RoR-miljö</li>
+  <li>Kör kommandot <i>rails s</li> för att starta servern</li>
+  <li>Öppna applikationen i en webbläsare</li>
+</ul>
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+## Testkonton
++ Admin
+  + Username: <i>Admin</i>
+  + Password: <i>adminhemligt</i>
++ Användare
+  + Email: <i>user.one@example.com</i>
+  + Password: <i>hemligt</i>
