@@ -34,13 +34,14 @@ class ApplicationController < ActionController::Base
   
   def require_login
     unless logged_in?
-      flash[:danger] = "Requires authentication."
+      flash[:danger] = "Must be logged in."
       redirect_to root_path
     end
   end
   
   def require_logout
     unless current_user.nil?
+      flash[:danger] = "Must be logged out."
       redirect_to root_path
     end
   end
