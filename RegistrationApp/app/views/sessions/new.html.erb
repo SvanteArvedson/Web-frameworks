@@ -9,7 +9,13 @@ Login
     </div>
   </div>
 </div>
-  
+
+<p>
+  <% if @current_user %>
+    <%= @current_user.email %>
+  <% end %>
+</p>
+
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <%= form_for :session, url: login_path do |f| %>

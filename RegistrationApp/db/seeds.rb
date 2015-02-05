@@ -5,9 +5,9 @@ at1 = ApplicationType.create(name: "Commercial")
 at2 = ApplicationType.create(name: "Nonprofit")
 at3 = ApplicationType.create(name: "Educational")
 
-admin = User.create(name: "Admin", email: "info@example.com", password: "adminlösen", password_confirmation: "adminlösen", admin: 1)
-u1 = User.create(name: "UserOne", email: "user.one@example.com", password: "lösen", password_confirmation: "lösen", admin: 0)
-u2 = User.create(name: "UserTwo", email: "user.two@example.com", password: "lösen", password_confirmation: "lösen", admin: 0)
+admin = User.create(name: "Admin", email: "info@example.com", password: "adminhemligt", password_confirmation: "adminhemligt", admin: 1)
+u1 = User.create(name: "UserOne", email: "user.one@example.com", password: "hemligt", password_confirmation: "hemligt", admin: 0)
+u2 = User.create(name: "UserTwo", email: "user.two@example.com", password: "hemligt", password_confirmation: "hemligt", admin: 0)
 
 a1 = Application.create(name: "AppOne", user_id: u1.id, application_type_id: at1.id)
 a2 = Application.create(name: "AppTwo", user_id: u1.id, application_type_id: at3.id)
