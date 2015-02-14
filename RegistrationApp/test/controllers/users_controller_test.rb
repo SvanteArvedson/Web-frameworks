@@ -4,13 +4,23 @@ class UsersControllerTest < ActionController::TestCase
   
   test "GET /users should list all users" do
     assert_routing '/users', { controller: "users", action: "index" }
+    
+    @controller = SessionsController.new
+    post :create, { session: { email: "Admin", password: "adminhemligt" } }
+ 
+    @controller = UsersController.new
     get :index
     assert_response :success
   end
   
-  test "GET /users/1 should show user with id 1" do
-    assert_routing '/users/1', { controller: "users", action: "show", id: "1" }
-    get :show, { id: "1" }
+  test "GET /users/2 should show user with id 1" do
+    assert_routing '/users/2', { controller: "users", action: "show", id: "2" }
+    
+    @controller = SessionsController.new
+    post :create, { session: { email: "user.one@example.com", password: "hemligt" } }
+    
+    @controller = UsersController.new 
+    get :show, { id: "2" }
     assert_response :success
   end
   
