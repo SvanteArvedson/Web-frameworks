@@ -14,17 +14,23 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test "Valid with valid email" do
-    u = User.new( name: "Cool", email: "valid.email@example.com", password_digest: "Hemligt", admin: false)
+    u = User.new( name: "Cool", email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt", admin: false)
     
     assert u.valid?
   end
   
   test "Should not save already existing email" do
-    u1 = User.new(name: "Valid User", email: "valid.email@example.com", password_digest: "Hemligt")
-    u2 = User.new(name: "Valid User", email: "valid.email@example.com", password_digest: "Hemligt")
+    u1 = User.new(name: "Valid Name", email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
+    u2 = User.new(name: "Valid Name", email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
     
     assert u1.save
     assert_not u2.save
   end
 
+  test "Not valid with too short password" do
+    u = User.new(name: "Valid Name", email: "valid.email@example.com", password: "hem", password_confirmation: "hem")
+    
+    assert_not u.valid?
+  end
+  
 end
