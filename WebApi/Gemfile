@@ -40,3 +40,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use email validation
 gem 'validates_email_format_of'
+
+# jwt for auth-token
+gem 'jwt'
