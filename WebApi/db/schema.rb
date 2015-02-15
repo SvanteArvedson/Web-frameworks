@@ -31,15 +31,13 @@ ActiveRecord::Schema.define(version: 20150210223029) do
   add_index "applications", ["api_key"], name: "index_applications_on_api_key", unique: true
 
   create_table "creators", force: true do |t|
-    t.string   "name",            limit: 50,  null: false
-    t.string   "email",           limit: 254
+    t.string   "email",           limit: 254, null: false
     t.string   "password_digest",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "creators", ["email"], name: "index_creators_on_email", unique: true
-  add_index "creators", ["name"], name: "index_creators_on_name", unique: true
 
   create_table "positions", force: true do |t|
     t.decimal  "latitude",   precision: 10, scale: 6, null: false
