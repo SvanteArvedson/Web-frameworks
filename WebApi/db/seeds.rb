@@ -12,4 +12,3 @@ t2 = Tag.create(name: "läskigt")
 
 s1 = Story.create(name: "Monsterståry", description: "Buu Huu Buu Huu", creator: c1, position: p1, tags: [t1, t2])
 s2 = Story.create(name: "Vampyrståry", description: "Blodkorv och svartsoppa", creator: c2, position: p2, tags: [t1, t2])
-
