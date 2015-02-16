@@ -1,0 +1,11 @@
+one:
+  id: 1
+  name: "Commercial"
+
+two:
+  id: 2
+  name: "Nonprofit"
+
+three:
+  id: 3
+  name: "Educational"

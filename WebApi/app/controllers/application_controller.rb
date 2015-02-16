@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
   def encodeJWT(obj)
     return JWT.encode(obj, Rails.application.secrets.secret_key_base, "HS512")
   end
+  
+  def require_api_key
+    unless Application.exists?(api_key: params['api_key'])
+      render json: ErrorMessage.new("Unvalid api_key.", "An error occured when making the request. Contact the application owner."), status: :forbidden
+    end
+  end
 end
