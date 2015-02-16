@@ -3,9 +3,9 @@ require 'test_helper'
 class ApplicationTest < ActionController::TestCase
   
   test "should not save new application" do
-    u = User.first
+    d = Developer.first
     t = ApplicationType.first
-    a = Application.new(name: "Example", user: u, application_type: t)
+    a = Application.new(name: "Example", developer: d, application_type: t)
     
     assert_raises(ActiveRecord::ReadOnlyRecord) { a.save }
   end

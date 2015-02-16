@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Developer < ActiveRecord::Base
   has_secure_password
   
   # Relations

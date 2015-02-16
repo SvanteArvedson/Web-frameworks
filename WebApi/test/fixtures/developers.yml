@@ -7,28 +7,28 @@ admin:
 
 one:
   id: 2
-  name: "User One"
-  email: "user.one@example.com"
+  name: "Developer One"
+  email: "developer.one@example.com"
   password_digest: <%= BCrypt::Password.create("hemligt", cost: 4) %>
   admin: false
 
 two:
   id: 3
-  name: "User Two"
-  email: "user.two@example.com"
+  name: "Developer Two"
+  email: "developer.two@example.com"
   password_digest: <%= BCrypt::Password.create("hemligt", cost: 4) %>
   admin: false
 
 three:
   id: 4
-  name: "User Three"
-  email: "user.three@example.com"
+  name: "Developer Three"
+  email: "developer.three@example.com"
   password_digest: <%= BCrypt::Password.create("hemligt", cost: 4) %>
   admin: false
 
 four:
   id: 5
-  name: "User Four"
-  email: "user.four@example.com"
+  name: "Developer Four"
+  email: "developer.four@example.com"
   password_digest: <%= BCrypt::Password.create("hemligt", cost: 4) %>
   admin: false

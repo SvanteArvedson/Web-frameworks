@@ -5,7 +5,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "POST /authenticate with unvalid api_key should return status 403" do
     assert_routing({ method: 'post', path: '/authenticate' }, { controller: "sessions", action: "authenticate" }) 
     post :authenticate, { email: "creator.one@example.com", password: "hemligt" }
-    assert_response :forbidden
+    assert_response :bad_request
   end
   
   test "POST /authenticate with unvalid credentials should return status 401" do

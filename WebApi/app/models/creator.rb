@@ -11,10 +11,10 @@ class Creator < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   
   # Makes sure email is in downcase and striped
-  after_initialize do |user|
-    unless user.email.nil?
-      user.email.strip!
-      user.email.downcase!
+  after_initialize do |creator|
+    unless creator.email.nil?
+      creator.email.strip!
+      creator.email.downcase!
     end
   end
 end

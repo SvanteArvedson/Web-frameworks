@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150210223029) do
   end
 
   create_table "applications", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "developer_id"
     t.integer  "application_type_id"
     t.string   "name",                limit: 100, null: false
     t.string   "api_key",                         null: false
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(version: 20150210223029) do
   end
 
   add_index "creators", ["email"], name: "index_creators_on_email", unique: true
+
+  create_table "developers", force: true do |t|
+    t.string   "name",            limit: 50,                  null: false
+    t.string   "email",           limit: 254,                 null: false
+    t.string   "password_digest",                             null: false
+    t.boolean  "admin",                       default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "developers", ["email"], name: "index_developers_on_email", unique: true
+  add_index "developers", ["name"], name: "index_developers_on_name", unique: true
 
   create_table "positions", force: true do |t|
     t.decimal  "latitude",   precision: 10, scale: 6, null: false
@@ -67,17 +79,5 @@ ActiveRecord::Schema.define(version: 20150210223029) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "users", force: true do |t|
-    t.string   "name",            limit: 50,                  null: false
-    t.string   "email",           limit: 254,                 null: false
-    t.string   "password_digest",                             null: false
-    t.boolean  "admin",                       default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["name"], name: "index_users_on_name", unique: true
 
 end

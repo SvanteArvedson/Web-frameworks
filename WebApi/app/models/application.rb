@@ -1,6 +1,6 @@
 class Application < ActiveRecord::Base
   # Relations
-  belongs_to :user
+  belongs_to :developer
   belongs_to :application_type
   
   def readonly?
