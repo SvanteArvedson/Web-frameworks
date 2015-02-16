@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Developer < ActiveRecord::Base
   has_secure_password
   
   # Relations
@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   
   # Makes sure email is in downcase and striped
-  after_initialize do |user|
-    unless user.email.nil?
-      user.email.strip!
-      user.email.downcase!
+  after_initialize do |developer|
+    unless developer.email.nil?
+      developer.email.strip!
+      developer.email.downcase!
     end
   end
 end

@@ -15,11 +15,11 @@ class ApplicationTest < ActiveSupport::TestCase
   
   test "Not valid with same api key twice" do
     key = SecureRandom.hex
-    u = User.find(2)
+    d = Developer.find(2)
     t = ApplicationType.first
     
-    a1 = Application.new(name: "AGoodName", user: u, application_type: t)
-    a2 = Application.new(name: "AnOtherGoodName", user: u, application_type: t)
+    a1 = Application.new(name: "AGoodName", developer: d, application_type: t)
+    a2 = Application.new(name: "AnOtherGoodName", developer: d, application_type: t)
     
     a1.api_key = key
     a2.api_key = key
@@ -36,9 +36,9 @@ class ApplicationTest < ActiveSupport::TestCase
   end
   
   test "Valid with a name with less than 100 characters" do
-    u = User.find(2)
+    d = Developer.find(2)
     t = ApplicationType.first
-    a = Application.new(name: "AGoodName", user: u, application_type: t)
+    a = Application.new(name: "AGoodName", developer: d, application_type: t)
     
     assert a.valid?
   end

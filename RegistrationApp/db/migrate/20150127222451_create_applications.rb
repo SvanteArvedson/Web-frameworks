@@ -1,7 +1,7 @@
 class CreateApplications < ActiveRecord::Migration
   def change
     create_table :applications do |t|
-      t.references :user
+      t.references :developer
       t.references :application_type
       
       t.string :name, limit: 100, null: false

@@ -1,5 +1,5 @@
 <% content_for :title do %>
-Register User
+Register Developer
 <% end %>
 
 <div class="row">
@@ -10,7 +10,7 @@ Register User
   </div>
 </div>
 
-<% if @user.errors.full_messages.any? %>
+<% if @developer.errors.full_messages.any? %>
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <div class="alert alert-danger alert-dismissible fade in">
@@ -18,7 +18,7 @@ Register User
         <span aria-hidden="true">&times;</span>
       </button>
       <ul>
-        <% @user.errors.full_messages.each do |error_message| %>
+        <% @developer.errors.full_messages.each do |error_message| %>
         <li><%= error_message %></li>
         <% end %>
       </ul>
@@ -29,7 +29,7 @@ Register User
 
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
-    <%= form_for @user do |f| %>
+    <%= form_for @developer do |f| %>
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>

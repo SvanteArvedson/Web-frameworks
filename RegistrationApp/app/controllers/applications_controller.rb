@@ -2,28 +2,28 @@ class ApplicationsController < ApplicationController
   before_action :require_login, only: [:create, :destroy, :new]
   
   def create
-    require_admin_or_user_login_by(params[:user_id])
-    @user = User.find(params[:user_id])
+    require_admin_or_developer_login_by(params[:developer_id])
+    @developer = Developer.find(params[:developer_id])
     @application = Application.new(application_params)
-    @application.user = @user
+    @application.developer = @developer
     
     if @application.save
       flash[:success] = "New application created."
-      redirect_to user_path(@user)
+      redirect_to developer_path(@developer)
     else
       render 'new'
     end
   end
   
   def destroy
-    require_admin_or_user_login_by(params[:user_id])
+    require_admin_or_developer_login_by(params[:developer_id])
     @application = Application.find(params[:id])
-    @user = User.find(params[:user_id])
+    @developer = Developer.find(params[:developer_id])
     
-    if @application.user.id == @user.id
+    if @application.developer.id == @developer.id
       @application.destroy
       flash[:success] = "Application deleted."
-      redirect_to user_path(@user), status: 303
+      redirect_to developer_path(@developer), status: 303
     else
       flash[:danger] = "Not found."
       redirect_to root_path
@@ -31,9 +31,9 @@ class ApplicationsController < ApplicationController
   end
   
   def new
-    require_admin_or_user_login_by(params[:user_id])
+    require_admin_or_developer_login_by(params[:developer_id])
     
-    @user = User.find(params[:user_id])
+    @developer = Developer.find(params[:developer_id])
     @application = Application.new
   end
   

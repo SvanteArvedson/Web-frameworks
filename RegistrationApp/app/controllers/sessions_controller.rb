@@ -3,13 +3,13 @@ class SessionsController < ApplicationController
   before_action :require_login, only: [:destroy]
 
   def create
-    user = User.find_by_email(params[:session][:email])
-    unless user
-      user = User.find_by_name(params[:session][:email])
+    developer = Developer.find_by_email(params[:session][:email])
+    unless developer
+      developer = Developer.find_by_name(params[:session][:email])
     end
    
-    if user && user.authenticate(params[:session][:password])
-      login_user user
+    if developer && developer.authenticate(params[:session][:password])
+      login_developer developer
       flash[:success] = "Successfully logged in."
     else
       flash[:danger] = "Wrong credentials."
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
   
   def destroy
-    logout_user
+    logout_developer
     flash[:success] = "Successfully logged out."
     redirect_to root_path
   end
@@ -27,13 +27,13 @@ class SessionsController < ApplicationController
   def index
     if logged_in?
       if admin_logged_in?
-        @users = User.all
-        render 'users/index'
+        @developers = Developer.all
+        render 'developers/index'
         return
       end
-      @user = current_user
-      @applications = @user.applications
-      render 'users/show'
+      @developer = current_developer
+      @applications = @developer.applications
+      render 'developers/show'
     else
       render 'new'
     end

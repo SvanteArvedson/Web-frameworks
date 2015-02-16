@@ -5,7 +5,7 @@ Create Application
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <div id="nav-bar">
-      <%= link_to "Back to user page", user_path(@user), class: "btn btn-default" %>
+      <%= link_to "Back to user page", developer_path(@developer), class: "btn btn-default" %>
       <%= link_to "Log out", logout_path, class: "btn btn-default" %>
     </div>
   </div>
@@ -30,7 +30,7 @@ Create Application
 
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
-    <%= form_for @application, url: user_applications_path(@user) do |f| %>
+    <%= form_for @application, url: developer_applications_path(@developer) do |f| %>
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>

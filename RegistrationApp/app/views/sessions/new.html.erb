@@ -5,14 +5,14 @@ Login
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <div id="nav-bar">
-      <%= link_to "Register", new_user_path, class: "btn btn-default" %>
+      <%= link_to "Register", new_developer_path, class: "btn btn-default" %>
     </div>
   </div>
 </div>
 
 <p>
-  <% if @current_user %>
-    <%= @current_user.email %>
+  <% if @current_developer %>
+    <%= @current_developer.email %>
   <% end %>
 </p>
 

@@ -1,5 +1,5 @@
 <% content_for :title do %>
-Users
+Developers
 <% end %>
 
 <div class="row">
@@ -17,11 +17,11 @@ Users
         <th>Email</th>
         <th></th>
       </tr>
-      <% @users.each do |user| %>
+      <% @developers.each do |developer| %>
       <tr>
-        <td><%= user.email %></td>
+        <td><%= developer.email %></td>
         <td>
-          <%= link_to "Show", user_path(user), class: "btn btn-primary btn-command" %><%= link_to "Delete", user_path(user), class: "btn btn-warning btn-command", method: :delete, data: { confirm: "Are you sure?"} %>
+          <%= link_to "Show", developer_path(developer), class: "btn btn-primary btn-command" %><%= link_to "Delete", developer_path(developer), class: "btn btn-warning btn-command", method: :delete, data: { confirm: "Are you sure?"} %>
         </td>
       </tr>
       <% end %>
