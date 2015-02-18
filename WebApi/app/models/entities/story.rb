@@ -26,7 +26,7 @@ class Story < ActiveRecord::Base
         longitude: position.longitude.to_s,
       },
       # TODO: add proper url
-      creator: "a_url_to_the_creator",
+      creator: Rails.configuration.baseurl + creator_path(creator),
       # TODO: add proper url
       tags: "add_url_to_tags_belonging_to_story"
     }

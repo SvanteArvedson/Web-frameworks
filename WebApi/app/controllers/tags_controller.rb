@@ -7,9 +7,10 @@ class TagsController < ApplicationController
     respond = {
       number_of_tags: tag_collection.length,
       urls: {
-        self: Rails.configuration.baseurl + tags_path,
+        self: request.url,
         all_creators: Rails.configuration.baseurl + creators_path,
-        all_stories: Rails.configuration.baseurl + stories_path
+        all_stories: Rails.configuration.baseurl + stories_path,
+        all_tags: Rails.configuration.baseurl + tags_path
       },
       tags: tag_collection.presentation
     }
@@ -22,8 +23,8 @@ class TagsController < ApplicationController
     tag = Tag.find(params['id'])
     respond = {
       urls: {
-        self: tag.self_url,
-        # TODO: add links to creators
+        self: request.url,
+        all_creators: Rails.configuration.baseurl + creators_path,
         all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
       },

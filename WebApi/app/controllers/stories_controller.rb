@@ -3,12 +3,18 @@ class StoriesController < ApplicationController
   
   def index
     # TODO_ implement limit and offset
-    story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
+    if params['tag_id'].nil?
+      story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
+    else
+      story_collection = StoryCollection.new(Tag.find(params['tag_id']).stories.order(updated_at: :desc))
+    end
+    
     respond = {
       number_of_stories: story_collection.length,
       urls: {
-        self: Rails.configuration.baseurl + stories_path,
+        self: request.url,
         all_creators: Rails.configuration.baseurl + creators_path,
+        all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
       },
       stories: story_collection.presentation
@@ -21,8 +27,8 @@ class StoriesController < ApplicationController
     story = Story.find(params['id'])
     respond = {
       urls: {
-        self: story.self_url,
-        # TODO: add links to creators
+        self: request.url,
+        all_creators: Rails.configuration.baseurl + creators_path,
         all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
       },

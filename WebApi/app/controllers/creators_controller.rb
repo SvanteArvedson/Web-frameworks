@@ -31,7 +31,8 @@ class CreatorsController < ApplicationController
     respond = {
       number_of_creators: creator_collection.length,
       urls: {
-        self: Rails.configuration.baseurl + creators_path,
+        self: request.url,
+        all_creators: Rails.configuration.baseurl + creators_path,
         all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
       },
@@ -45,7 +46,7 @@ class CreatorsController < ApplicationController
     creator = Creator.find(params['id'])
     respond = {
       urls: {
-        self: creator.self_url,
+        self: request.url,
         all_creators: Rails.configuration.baseurl + creators_path,
         all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
