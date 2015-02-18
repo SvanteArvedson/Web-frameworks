@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   
   resources :stories, only: [ :show, :index ]
   
+  resources :tags, only: [ :show, :index ]
+  
 end

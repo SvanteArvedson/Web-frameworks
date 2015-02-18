@@ -5,14 +5,14 @@ class StoryCollection
     @stories = stories
   end
   
-  def get_length
+  def length
     return @stories.length
   end
   
-  def get_presentation
+  def presentation
     pres = []
     @stories.each do |story|
-      pres << story.get_presentation
+      pres << story.presentation
     end
     return pres
   end

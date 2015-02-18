@@ -12,8 +12,8 @@ class Story < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true
   
-  # creates a json presentation of the object
-  def get_presentation
+  # creates a json presentation of the story
+  def presentation
     return {
       url: self_url,
       id: id,
@@ -25,12 +25,10 @@ class Story < ActiveRecord::Base
         latitude: position.latitude.to_s,
         longitude: position.longitude.to_s,
       },
-      creator: {
-        # TODO: create proper url
-        url: "a_url_to_the_creator",
-        id: creator.id,
-        email: creator.email
-      }
+      # TODO: add proper url
+      creator: "a_url_to_the_creator",
+      # TODO: add proper url
+      tags: "add_url_to_tags"
     }
   end
   
