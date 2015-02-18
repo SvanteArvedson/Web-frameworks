@@ -15,8 +15,7 @@ class Tag < ActiveRecord::Base
       name: name,
       created_at: created_at,
       updated_at: updated_at,
-      # TODO: add proper url
-      stories: "url_to_stories_with_this_tag"
+      stories: Rails.configuration.baseurl + tag_stories_path(self)
     }
   end
   

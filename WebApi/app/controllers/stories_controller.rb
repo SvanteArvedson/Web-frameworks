@@ -3,10 +3,12 @@ class StoriesController < ApplicationController
   
   def index
     # TODO_ implement limit and offset
-    if params['tag_id'].nil?
-      story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
-    else
+    if !params['tag_id'].nil?
       story_collection = StoryCollection.new(Tag.find(params['tag_id']).stories.order(updated_at: :desc))
+    elsif !params['creator_id'].nil?
+      story_collection = StoryCollection.new(Creator.find(params['creator_id']).stories.order(updated_at: :desc))
+    else
+      story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
     end
     
     respond = {

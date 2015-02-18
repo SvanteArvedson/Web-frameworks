@@ -28,8 +28,7 @@ class Creator < ActiveRecord::Base
       email: email,
       created_at: created_at,
       updated_at: updated_at,
-      # TODO: add proper url
-      stories: "a_url_to_stories_by_creator",
+      stories: Rails.configuration.baseurl + creator_stories_path(self),
     }
   end
   
