@@ -80,4 +80,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # custom configurations
+  config.baseurl = "http://webbramverk-186197.euw1-2.nitrousbox.com"
 end

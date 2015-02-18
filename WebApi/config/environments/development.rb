@@ -34,4 +34,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  # custom configurations
+  config.baseurl = "http://webbramverk-186197.euw1-2.nitrousbox.com"
+
 end

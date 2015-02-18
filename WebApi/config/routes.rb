@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   
   resources :creators, only: [ :create ]
   
+  resources :stories, only: [ :show, :index ]
+  
 end
