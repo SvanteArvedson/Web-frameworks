@@ -2,10 +2,10 @@ Rails.application.routes.draw do
 
   post '/authenticate' => 'sessions#authenticate'
   
-  resources :creators, only: [ :create ]
+  resources :creators, only: [ :create, :index, :show ]
   
-  resources :stories, only: [ :show, :index ]
+  resources :stories, only: [ :index, :show ]
   
-  resources :tags, only: [ :show, :index ]
+  resources :tags, only: [ :index, :show ]
   
 end

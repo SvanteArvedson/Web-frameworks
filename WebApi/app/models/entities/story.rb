@@ -28,7 +28,7 @@ class Story < ActiveRecord::Base
       # TODO: add proper url
       creator: "a_url_to_the_creator",
       # TODO: add proper url
-      tags: "add_url_to_tags"
+      tags: "add_url_to_tags_belonging_to_story"
     }
   end
   

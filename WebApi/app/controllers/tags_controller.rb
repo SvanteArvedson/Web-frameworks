@@ -8,7 +8,7 @@ class TagsController < ApplicationController
       number_of_tags: tag_collection.length,
       urls: {
         self: Rails.configuration.baseurl + tags_path,
-        # TODO: add links to creators
+        all_creators: Rails.configuration.baseurl + creators_path,
         all_stories: Rails.configuration.baseurl + stories_path
       },
       tags: tag_collection.presentation

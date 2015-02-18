@@ -1,4 +1,6 @@
 class Creator < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  
   has_secure_password
   
   # relations
@@ -16,5 +18,22 @@ class Creator < ActiveRecord::Base
       creator.email.strip!
       creator.email.downcase!
     end
+  end
+  
+  # creates a json presentation of the creator
+  def presentation
+    return {
+      url: self_url,
+      id: id,
+      email: email,
+      created_at: created_at,
+      updated_at: updated_at,
+      # TODO: add proper url
+      stories: "a_url_to_stories_by_creator",
+    }
+  end
+  
+  def self_url
+    Rails.configuration.baseurl + creator_path(self)
   end
 end
