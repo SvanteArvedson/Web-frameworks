@@ -3,7 +3,12 @@ class TagsController < ApplicationController
   
   def index
     # TODO_ implement limit and offset
-    tag_collection = TagCollection.new(Tag.all.order(:name))
+    if params['tag_id'].nil?
+      tag_collection = TagCollection.new(Tag.all.order(:name))
+    else
+      tag_collection = TagCollection.new(Story.find(params['story_id']).tags.order(:name))
+    end
+    
     respond = {
       number_of_tags: tag_collection.length,
       urls: {

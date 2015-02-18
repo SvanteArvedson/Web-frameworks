@@ -24,4 +24,16 @@ class StoriesControllerTest < ActionController::TestCase
     get :show, { id: "1", api_key: "Q1W2E3R4T5Y1" }
     assert_response :success
   end
+  
+  test "GET /stories/1/tags with unvalid api_key should return status 400" do
+    assert_routing({ method: 'get', path: '/stories/1/tags' }, { controller: "tags", action: "index", story_id: "1" }) 
+    get :index, { story_id: "1", api_key: "Q1W2E3T5Y1" }
+    assert_response :bad_request
+  end
+  
+  test "GET /stories/1/tags should return status 200" do
+    assert_routing({ method: 'get', path: '/stories/1/tags' }, { controller: "tags", action: "index", story_id: "1" }) 
+    get :index, { story_id: "1", api_key: "Q1W2E3R4T5Y1" }
+    assert_response :success
+  end
 end
