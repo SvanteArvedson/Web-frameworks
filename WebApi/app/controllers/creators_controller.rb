@@ -1,6 +1,6 @@
 class CreatorsController < ApplicationController
   before_action :require_api_key
-  # before_action :require_auth_token, only: [ :create ]
+  before_action :require_auth_token, only: [ :destroy ]
 
   def create
     c = Creator.new(
@@ -23,6 +23,22 @@ class CreatorsController < ApplicationController
         "Faild to create new creator."
       ), status: :bad_request
     end
+  end
+  
+  def destroy    
+    if auth_token['creator_id'] != params['id'].to_i
+      render json: ErrorMessage.new("You must be logged as the creator to delete it.", "Forbidden!"), status: :forbidden
+      return
+    else
+      creator = Creator.find(params[:id])
+      creator.destroy
+      
+      respond = {
+        message: "Creator have been deleted."
+      }
+      render json: respond
+    end
+    
   end
 
   def index

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/stories/search' => 'stories#search'
   get '/stories/nearby' => 'stories#nearby'
   
-  resources :creators, only: [ :create, :index, :show ] do
+  resources :creators, only: [ :create, :index, :show, :destroy ] do
     resources :stories, only: [ :index ]
   end
   

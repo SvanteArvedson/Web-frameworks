@@ -27,13 +27,10 @@ class StoriesController < ApplicationController
   
   def nearby
     if params['latitude'].nil? || params['longitude'].nil?
-      
-      Float(self) != nil rescue false
       message = ErrorMessage.new("You must send latitude and longitude to get nearby stories", "You must send latitude and longitude to get nearby stories")
       render json: message, status: :bad_request
     else
       distance = params['distance'].present? ? params['distance'] : 20
-      
       story_collection = StoryCollection.new(Story.near([params['latitude'], params['longitude']], distance, units: :km))
       
       respond = {
@@ -50,9 +47,6 @@ class StoriesController < ApplicationController
       }
       
       render json: respond
-      
-      
-      
     end
   end
   

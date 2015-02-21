@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   
   private
   
+  def auth_token
+    return @auth_token
+  end
+  
   def encodeJWT(obj)
     return JWT.encode(obj, Rails.application.secrets.secret_key_base, "HS512")
   end
@@ -40,6 +44,8 @@ class ApplicationController < ActionController::Base
     unless Creator.exists?(id: decoded_auth_token['creator_id']) && Time.now.utc < decoded_auth_token['terminates_at']
       render json: ErrorMessage.new("Unvalid auth_token.", "You must log in to do make this request."), status: :unauthorized
     end
+    
+    @auth_token = decoded_auth_token
   end
   
 end
