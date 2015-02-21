@@ -1,6 +1,7 @@
 class Story < ActiveRecord::Base
+  reverse_geocoded_by :latitude, :longitude
   include Rails.application.routes.url_helpers
-  
+
   # relations
   belongs_to :creator
   has_and_belongs_to_many :tags

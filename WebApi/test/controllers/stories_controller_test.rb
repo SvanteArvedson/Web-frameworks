@@ -57,17 +57,31 @@ class StoriesControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "GET /search?query=Blodkorv should return status 200" do
-    assert_routing({ method: 'get', path: '/search' }, { controller: "stories", action: "search" }) 
+  test "GET /stories/search?query=Blodkorv should return status 200" do
+    assert_routing({ method: 'get', path: '/stories/search' }, { controller: "stories", action: "search" }) 
     
     get :search, { 'api-key' => "Q1W2E3R4T5Y1", query: "Blodkorv" }
     assert_response :success
   end
   
-  test "GET /search?query=Blodkorv with unvalid api-key should return status 400" do
-    assert_routing({ method: 'get', path: '/search' }, { controller: "stories", action: "search" }) 
+  test "GET /stories/search?query=Blodkorv with unvalid api-key should return status 400" do
+    assert_routing({ method: 'get', path: '/stories/search' }, { controller: "stories", action: "search" }) 
     
     get :search, { 'api-key' => "Q1W2E3R4T5Y", query: "Blodkorv" }
+    assert_response :bad_request
+  end
+  
+  test "GET /stories/nearby?latitude=56.161931&longitude=13.7762741 should return status 200" do
+    assert_routing({ method: 'get', path: '/stories/nearby' }, { controller: "stories", action: "nearby" }) 
+    
+    get :nearby, { 'api-key' => "Q1W2E3R4T5Y1", latitude: 56.161931, longitude: 13.7762741 }
+    assert_response :success
+  end
+  
+  test "GET /stories/nearby?latitude=56.161931&longitude=13.7762741 with unvalid api-key should return status 400" do
+    assert_routing({ method: 'get', path: '/stories/nearby' }, { controller: "stories", action: "nearby" }) 
+    
+    get :nearby, { 'api-key' => "Q1W2E3R4T5Y", latitude: 56.161931, longitude: 13.7762741 }
     assert_response :bad_request
   end
 end

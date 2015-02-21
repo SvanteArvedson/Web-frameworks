@@ -25,6 +25,37 @@ class StoriesController < ApplicationController
     render json: respond
   end
   
+  def nearby
+    if params['latitude'].nil? || params['longitude'].nil?
+      
+      Float(self) != nil rescue false
+      message = ErrorMessage.new("You must send latitude and longitude to get nearby stories", "You must send latitude and longitude to get nearby stories")
+      render json: message, status: :bad_request
+    else
+      distance = params['distance'].present? ? params['distance'] : 20
+      
+      story_collection = StoryCollection.new(Story.near([params['latitude'], params['longitude']], distance, units: :km))
+      
+      respond = {
+        latitude: params['latitude'],
+        longitude: params['longitude'],
+        number_of_stories: story_collection.length,
+        urls: {
+          self: request.url,
+          all_creators: Rails.configuration.baseurl + creators_path,
+          all_stories: Rails.configuration.baseurl + stories_path,
+          all_tags: Rails.configuration.baseurl + tags_path
+        },
+        stories: story_collection.presentation
+      }
+      
+      render json: respond
+      
+      
+      
+    end
+  end
+  
   def search
     if params['query'].nil?
       message = ErrorMessage.new("You must send a query to do a search", "You must send a query to do a search")
