@@ -51,18 +51,12 @@ ActiveRecord::Schema.define(version: 20150210223029) do
   add_index "developers", ["email"], name: "index_developers_on_email", unique: true
   add_index "developers", ["name"], name: "index_developers_on_name", unique: true
 
-  create_table "positions", force: true do |t|
-    t.decimal  "latitude",   precision: 10, scale: 6, null: false
-    t.decimal  "longitude",  precision: 10, scale: 6, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "stories", force: true do |t|
     t.integer  "creator_id"
-    t.integer  "position_id"
     t.string   "name",        limit: 50, null: false
     t.text     "description",            null: false
+    t.float    "latitude",               null: false
+    t.float    "longitude",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

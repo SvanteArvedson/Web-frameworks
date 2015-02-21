@@ -3,28 +3,25 @@ require 'test_helper'
 class StoryTest < ActiveSupport::TestCase
   test "Not valid without name" do
     c = Creator.new(email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
-    p = Position.new(latitude: 1111.111111, longitude: 1111.111111)
-    s = Story.new(description: "buu buu huu huu", creator: c, position: p)
+    s = Story.new(description: "buu buu huu huu", creator: c, latitude: 11.111111, longitude: 11.111111)
     
     assert_not s.valid?
   end
   
   test "Not valid without description" do
     c = Creator.new(email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
-    p = Position.new(latitude: 1111.111111, longitude: 1111.111111)
-    s = Story.new(name: "Monsterståry", creator: c, position: p)
+    s = Story.new(name: "Monsterståry", creator: c, latitude: 11.111111, longitude: 11.111111)
     
     assert_not s.valid?
   end
   
   test "Not valid without creator" do
-    p = Position.new(latitude: 1111.111111, longitude: 1111.111111)
-    s = Story.new(name: "Monsterståry", description: "buu buu huu huu", position: p)
+    s = Story.new(name: "Monsterståry", description: "buu buu huu huu", latitude: 11.111111, longitude: 11.111111)
     
     assert_not s.valid?
   end
   
-  test "Not valid without position" do
+  test "Not valid without latitude and longitude" do
     c = Creator.new(email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
     s = Story.new(name: "Monsterståry", description: "buu buu huu huu", creator: c)
     
@@ -33,16 +30,14 @@ class StoryTest < ActiveSupport::TestCase
   
   test "Not valid with too long name" do
     c = Creator.new(email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
-    p = Position.new(latitude: 1111.111111, longitude: 1111.111111)
-    s = Story.new(name: "MonsterståryMonsterståryMonsterståryMonsterståryMonsterståry", description: "buu buu huu huu", creator: c, position: p)
+    s = Story.new(name: "MonsterståryMonsterståryMonsterståryMonsterståryMonsterståry", description: "buu buu huu huu", creator: c, latitude: 11.111111, longitude: 11.111111)
     
     assert_not s.valid?
   end
   
   test "Valid with name, description, creator and position" do
     c = Creator.new(email: "valid.email@example.com", password: "hemligt", password_confirmation: "hemligt")
-    p = Position.new(latitude: 1111.111111, longitude: 1111.111111)
-    s = Story.new(name: "Monsterståry", description: "buu buu huu huu", creator: c, position: p)
+    s = Story.new(name: "Monsterståry", description: "buu buu huu huu", creator: c, latitude: 11.111111, longitude: 11.111111)
     
     assert s.valid?
   end

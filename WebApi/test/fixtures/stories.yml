@@ -7,13 +7,23 @@
 one:
   id: 1
   creator_id: 1
-  position_id: 1
   name: "Monsterståry"
   description: "Buu Huu Buu Huu"
+  latitude: 56.1647866
+  longitude: 13.7754562
 
 two:
   id: 2
   creator_id: 2
-  position_id: 2
   name: "Vampyrståry"
   description: "Blodkorv och svartsoppa"
+  latitude: 56.1722135
+  longitude: 13.7956328
+
+three:
+  id: 3
+  creator_id: 2
+  name: "Zombieståry"
+  description: "Jesus lever, lungor och tår"
+  latitude: 56.8803811
+  longitude: 14.8182868

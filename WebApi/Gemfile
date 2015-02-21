@@ -43,3 +43,6 @@ gem 'validates_email_format_of'
 
 # jwt for auth-token
 gem 'jwt'
+
+# for calculating distances
+gem 'geocoder'

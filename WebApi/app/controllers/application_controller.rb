@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       render json: ErrorMessage.new("Unexisting api-key.", "An error occured when making the request. Contact the application owner."), status: :bad_request
       return
     else
-      api_key = !params['api-key'].nil? ? params['api-key'] : request.headers['api-key']
+      api_key = params['api-key'].present? ? params['api-key'] : request.headers['api-key']
     end
     
     unless Application.exists?(api_key: api_key)
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       render json: ErrorMessage.new("Unexisting auth-token.", "An error occured when making the request. Contact the application owner."), status: :bad_request
       return
     else
-      auth_token = !params['auth-token'].nil? ? params['auth-token'] : request.headers["auth-token"]
+      auth_token = params['auth-token'].present? ? params['auth-token'] : request.headers["auth-token"]
     end
     
     decoded_auth_token = decodeJWT(auth_token)[0]

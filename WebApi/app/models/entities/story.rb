@@ -3,14 +3,14 @@ class Story < ActiveRecord::Base
   
   # relations
   belongs_to :creator
-  belongs_to :position
   has_and_belongs_to_many :tags
   
   # validation
   validates :creator, presence: true
-  validates :position, presence: true
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true
+  validates :latitude, presence: true
+  validates :longitude, presence: true
   
   # creates a json presentation of the story
   def presentation
@@ -19,12 +19,12 @@ class Story < ActiveRecord::Base
       id: id,
       name: name,
       description: description,
+      position: {
+        latitude: latitude.to_s,
+        longitude: longitude.to_s,
+      },
       created_at: created_at,
       updated_at: updated_at,
-      position: {
-        latitude: position.latitude.to_s,
-        longitude: position.longitude.to_s,
-      },
       creator: Rails.configuration.baseurl + creator_path(creator),
       tags: Rails.configuration.baseurl + story_tags_path(self)
     }
