@@ -15,22 +15,31 @@ class ApplicationController < ActionController::Base
   end
   
   def require_api_key
-    unless Application.exists?(api_key: params['api_key'])
-      render json: ErrorMessage.new("Unvalid api_key.", "An error occured when making the request. Contact the application owner."), status: :bad_request
+    if params['api-key'].nil? && request.headers['Api-Key'].nil?
+      render json: ErrorMessage.new("Unexisting api-key.", "An error occured when making the request. Contact the application owner."), status: :bad_request
+      return
+    else
+      api_key = !params['api-key'].nil? ? params['api-key'] : request.headers['api-key']
+    end
+    
+    unless Application.exists?(api_key: api_key)
+      render json: ErrorMessage.new("Unvalid api-key.", "An error occured when making the request. Contact the system administrator."), status: :bad_request
     end
   end
   
   def require_auth_token
-    if params['auth_token'].nil?
-      render json: ErrorMessage.new("Unexisting auth_token.", "An error occured when making the request. Contact the application owner."), status: :bad_request
+    if params['auth-token'].nil? && request.headers['auth-Token'].nil?
+      render json: ErrorMessage.new("Unexisting auth-token.", "An error occured when making the request. Contact the application owner."), status: :bad_request
+      return
+    else
+      auth_token = !params['auth-token'].nil? ? params['auth-token'] : request.headers["auth-token"]
     end
     
-    decoded_auth_token = decodeJWT(params['auth_token'])
+    decoded_auth_token = decodeJWT(auth_token)[0]
     
-    unless Creator.exists?(id: decoded_auth_token[0]['creator_id']) && Time.now.utc < decoded_auth_token[0]['terminates_at']
+    unless Creator.exists?(id: decoded_auth_token['creator_id']) && Time.now.utc < decoded_auth_token['terminates_at']
       render json: ErrorMessage.new("Unvalid auth_token.", "You must log in to do make this request."), status: :unauthorized
     end
-
   end
   
 end
