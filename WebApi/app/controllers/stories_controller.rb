@@ -27,7 +27,11 @@ class StoriesController < ApplicationController
   
   def nearby
     if params['latitude'].nil? || params['longitude'].nil?
-      message = ErrorMessage.new("You must send latitude and longitude to get nearby stories", "You must send latitude and longitude to get nearby stories")
+      message = ErrorMessage.new(
+        "You must send latitude and longitude to get nearby stories", 
+        "You must send latitude and longitude to get nearby stories",
+        {}
+      )
       render json: message, status: :bad_request
     else
       distance = params['distance'].present? ? params['distance'] : 20
@@ -52,7 +56,11 @@ class StoriesController < ApplicationController
   
   def search
     if params['query'].nil?
-      message = ErrorMessage.new("You must send a query to do a search", "You must send a query to do a search")
+      message = ErrorMessage.new(
+        "You must send a query to do a search", 
+        "You must send a query to do a search",
+        {}
+      )
       render json: message, status: :bad_request
     else
       querys = params['query'].split(/\W+/)
@@ -95,5 +103,4 @@ class StoriesController < ApplicationController
     
     render json: respond
   end
-  
 end

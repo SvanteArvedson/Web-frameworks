@@ -10,24 +10,28 @@ class CreatorsController < ApplicationController
     );
     
     if c.save
-      # TODO: create proper url
       render json: { 
         message: "New creator created", 
         url: Rails.configuration.baseurl + creator_path(c), 
         created_at: c.created_at 
       }, status: :created
     else
-      # TODO: Add proper error messages
-      render json: ErrorMessage.new(
-        "Unvalid email, password or password_confirmation.", 
-        "Faild to create new creator."
-      ), status: :bad_request
+      respond = ErrorMessage.new(
+        "Unvalid data. Failed to create new creator.", 
+        "Failed to create new creator.",
+        c.errors
+      )
+      render json: respond.presentation, status: :bad_request
     end
   end
   
   def destroy    
     if auth_token['creator_id'] != params['id'].to_i
-      render json: ErrorMessage.new("You must be logged as the creator to delete it.", "Forbidden!"), status: :forbidden
+      render json: ErrorMessage.new(
+        "You must be logged as the creator to delete it.", 
+        "Forbidden!",
+        {}
+      ), status: :forbidden
       return
     else
       creator = Creator.find(params[:id])
@@ -77,5 +81,4 @@ class CreatorsController < ApplicationController
     
     render json: respond
   end
-  
 end

@@ -71,7 +71,6 @@ class CreatorsControllerTest < ActionController::TestCase
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.two@example.com", password: "hemligt" }
     
     response = JSON.parse(@response.body)
-    
     @controller = CreatorsController.new()
     assert_routing({ method: 'delete', path: '/creators/1' }, { controller: "creators", action: "destroy", id: "1" }) 
     delete :destroy, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'] }
@@ -83,7 +82,6 @@ class CreatorsControllerTest < ActionController::TestCase
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
     response = JSON.parse(@response.body)
-    
     @controller = CreatorsController.new()
     assert_routing({ method: 'delete', path: '/creators/1' }, { controller: "creators", action: "destroy", id: "1" }) 
     delete :destroy, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'] }
