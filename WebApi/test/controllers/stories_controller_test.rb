@@ -92,11 +92,11 @@ class StoriesControllerTest < ActionController::TestCase
   end
   
   test "POST /stories with valid api-key and auth-token and valid data should return status 201" do
-    @controller = SessionsController.new()
+    @controller = SessionsController.new
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
     response = JSON.parse(@response.body)
-    @controller = StoriesController.new()
+    @controller = StoriesController.new
     assert_routing({ method: 'post', path: '/stories' }, { controller: "stories", action: "create" }) 
     post :create, { story_id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308 }
     assert_response :created
@@ -109,11 +109,11 @@ class StoriesControllerTest < ActionController::TestCase
   end
   
 #  test "POST /stories/1/tags with valid api-key and auth-token and valid data should return status 200" do
-#    @controller = SessionsController.new()
+#    @controller = SessionsController.new
 #    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
 #    
 #    response = JSON.parse(@response.body)
-#    @controller = StoriesController.new()
+#    @controller = StoriesController.new
 #
 #    assert_routing({ method: 'post', path: '/stories/1/tags' }, { controller: "stories", action: "add_tags", story_id: "1" })
 #    post :add_tags, { story_id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], 'tag-ids' => '[1,2]' }
@@ -127,13 +127,48 @@ class StoriesControllerTest < ActionController::TestCase
   end
   
 #  test "PUT /stories/1 with valid api-key and auth-token and valid data should return status 200" do
-#    @controller = SessionsController.new()
+#    @controller = SessionsController.new
 #    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
 #    response = JSON.parse(@response.body)
+    
 #    @controller = StoriesController.new
 #    assert_routing({ method: 'put', path: '/stories/1' }, { controller: "stories", action: "update", id: "1" }) 
 #    put :update, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Love story", description: "Kisses, snuggles and hugs", latitude: 56.124696, longitude: 13.740030 }
 #    assert_response :success
 #  end
+  
+  test "DELETE /stories/1 with valid api_key but unvalid auth-token should return status 403" do
+    @controller = SessionsController.new
+    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
+    
+    response = JSON.parse(@response.body)
+    
+    @controller = StoriesController.new
+    assert_routing({ method: 'delete', path: '/stories/1' }, { controller: "stories", action: "destroy", id: "1" }) 
+    delete :destroy, { id: "1", 'api-key' => Application.first.api_key }
+    assert_response :bad_request
+  end
+  
+  test "DELETE /stories/1 with valid api_key but logged in as someone else should return status 403" do
+    @controller = SessionsController.new
+    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.two@example.com", password: "hemligt" }
+    
+    response = JSON.parse(@response.body)
+    @controller = StoriesController.new
+    assert_routing({ method: 'delete', path: '/stories/1' }, { controller: "stories", action: "destroy", id: "1" }) 
+    delete :destroy, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'] }
+    assert_response :forbidden
+  end
+  
+  test "DELETE /stories/1 with valid api_key and valid auth-token should return status 200" do
+    @controller = SessionsController.new
+    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
+    
+    response = JSON.parse(@response.body)
+    @controller = StoriesController.new
+    assert_routing({ method: 'delete', path: '/stories/1' }, { controller: "stories", action: "destroy", id: "1" }) 
+    delete :destroy, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'] }
+    assert_response :success
+  end
 end

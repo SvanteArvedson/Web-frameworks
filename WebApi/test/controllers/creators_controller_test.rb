@@ -54,7 +54,7 @@ class CreatorsControllerTest < ActionController::TestCase
     assert_response :created
   end
   
-  test "DELETE /creators with valid api_key but unvalid auth-token should return status 403" do
+  test "DELETE /creators/1 with valid api_key but unvalid auth-token should return status 403" do
     @controller = SessionsController.new()
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
@@ -66,7 +66,7 @@ class CreatorsControllerTest < ActionController::TestCase
     assert_response :bad_request
   end
   
-  test "DELETE /creators with valid api_key but logged in as someone else should return status 403" do
+  test "DELETE /creators/1 with valid api_key but logged in as someone else should return status 403" do
     @controller = SessionsController.new()
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.two@example.com", password: "hemligt" }
     
@@ -77,7 +77,7 @@ class CreatorsControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
   
-  test "DELETE /creators with valid api_key and valid auth-token should return status 200" do
+  test "DELETE /creators/1 with valid api_key and valid auth-token should return status 200" do
     @controller = SessionsController.new()
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
@@ -87,5 +87,4 @@ class CreatorsControllerTest < ActionController::TestCase
     delete :destroy, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'] }
     assert_response :success
   end
-  
 end

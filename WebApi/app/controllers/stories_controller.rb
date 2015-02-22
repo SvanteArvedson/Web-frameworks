@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :require_api_key
-  before_action :require_auth_token, only: [ :add_tags, :create, :update ]
+  before_action :require_auth_token, only: [ :add_tags, :create, :destroy, :update ]
   
   def add_tags
     if params['tag-ids'].nil?
@@ -59,6 +59,24 @@ class StoriesController < ApplicationController
         s.errors
       )
       render json: respond.presentation, status: :bad_request
+    end
+  end
+  
+  def destroy
+    if auth_token['creator_id'] != Story.find(params[:id]).creator.id.to_i
+      render json: ErrorMessage.new(
+        "You must be logged as the creator of the story to delete it.", 
+        "Forbidden!",
+        {}
+      ), status: :forbidden
+      return
+    else
+      story = Story.find(params[:id])
+      story.destroy
+      
+      render json: {
+        message: "Story have been deleted."
+      }
     end
   end
   

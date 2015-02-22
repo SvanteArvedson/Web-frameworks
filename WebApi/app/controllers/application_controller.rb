@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
     decoded_auth_token = decodeJWT(auth_token)[0]
     
     unless Creator.exists?(id: decoded_auth_token['creator_id']) && Time.now.utc < decoded_auth_token['terminates_at']
-      render json: ErrorMessage.new("Unvalid auth_token.", 
+      render json: ErrorMessage.new("Unvalid auth-token.", 
         "You must log in to do make this request.",
         {}
       ), status: :unauthorized
