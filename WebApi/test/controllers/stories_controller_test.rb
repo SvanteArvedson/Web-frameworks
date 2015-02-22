@@ -87,7 +87,7 @@ class StoriesControllerTest < ActionController::TestCase
   
   test "POST /stories without auth-token should return status 400" do
     assert_routing({ method: 'post', path: '/stories' }, { controller: "stories", action: "create" }) 
-    post :create, { 'api-key' => Application.first.api_key, name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308, creator_id: Creator.first.id }
+    post :create, { 'api-key' => Application.first.api_key, name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308 }
     assert_response :bad_request
   end
   
@@ -98,7 +98,42 @@ class StoriesControllerTest < ActionController::TestCase
     response = JSON.parse(@response.body)
     @controller = StoriesController.new()
     assert_routing({ method: 'post', path: '/stories' }, { controller: "stories", action: "create" }) 
-    post :create, { 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308, creator_id: Creator.first.id }
+    post :create, { story_id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308 }
     assert_response :created
   end
+  
+  test "POST /stories/1/tags without auth-token should return status 400" do
+    assert_routing({ method: 'post', path: '/stories/1/tags' }, { controller: "stories", action: "add_tags", story_id: "1" }) 
+    post :add_tags, { story_id: "1", 'api-key' => Application.first.api_key, 'tag-ids' => '[1,2]' }
+    assert_response :bad_request
+  end
+  
+#  test "POST /stories/1/tags with valid api-key and auth-token and valid data should return status 200" do
+#    @controller = SessionsController.new()
+#    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
+#    
+#    response = JSON.parse(@response.body)
+#    @controller = StoriesController.new()
+#
+#    assert_routing({ method: 'post', path: '/stories/1/tags' }, { controller: "stories", action: "add_tags", story_id: "1" })
+#    post :add_tags, { story_id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], 'tag-ids' => '[1,2]' }
+#    assert_response :success
+#  end
+  
+  test "PUT /stories/1 without auth-token should return status 400" do
+    assert_routing({ method: 'put', path: '/stories/1' }, { controller: "stories", action: "update", id: "1" }) 
+    put :update, { id: "1", 'api-key' => Application.first.api_key, name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308 }
+    assert_response :bad_request
+  end
+  
+#  test "PUT /stories/1 with valid api-key and auth-token and valid data should return status 200" do
+#    @controller = SessionsController.new()
+#    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
+    
+#    response = JSON.parse(@response.body)
+#    @controller = StoriesController.new
+#    assert_routing({ method: 'put', path: '/stories/1' }, { controller: "stories", action: "update", id: "1" }) 
+#    put :update, { id: "1", 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Love story", description: "Kisses, snuggles and hugs", latitude: 56.124696, longitude: 13.740030 }
+#    assert_response :success
+#  end
 end
