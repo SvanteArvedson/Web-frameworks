@@ -1,5 +1,31 @@
 class StoriesController < ApplicationController
   before_action :require_api_key
+  before_action :require_auth_token, only: [ :create ]
+  
+  def create
+    s = Story.new(
+      name: params[:name],
+      description: params[:description],
+      latitude: params[:latitude],
+      longitude: params[:longitude],
+      creator: Creator.find_by_id(params[:creator_id])
+    )
+
+    if s.save
+      render json: { 
+        message: "New story created", 
+        url: Rails.configuration.baseurl + story_path(s), 
+        created_at: s.created_at 
+        }, status: :created
+    else
+      respond = ErrorMessage.new(
+        "Unvalid data. Failed to create new story.", 
+        "Failed to create new story.",
+        s.errors
+      )
+      render json: respond.presentation, status: :bad_request
+    end
+  end
   
   def index
     # TODO: implement limit and offset

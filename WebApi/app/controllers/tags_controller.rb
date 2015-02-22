@@ -8,7 +8,6 @@ class TagsController < ApplicationController
     )
     
     if t.save
-      # TODO: create proper url
       render json: { 
         message: "New tag created", 
         url: Rails.configuration.baseurl + tag_path(t), 

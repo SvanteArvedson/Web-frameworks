@@ -84,4 +84,21 @@ class StoriesControllerTest < ActionController::TestCase
     get :nearby, { 'api-key' => "Q1W2E3R4T5Y", latitude: 56.161931, longitude: 13.7762741 }
     assert_response :bad_request
   end
+  
+  test "POST /stories without auth-token should return status 400" do
+    assert_routing({ method: 'post', path: '/stories' }, { controller: "stories", action: "create" }) 
+    post :create, { 'api-key' => Application.first.api_key, name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308, creator_id: Creator.first.id }
+    assert_response :bad_request
+  end
+  
+  test "POST /stories with valid api-key and auth-token and valid data should return status 201" do
+    @controller = SessionsController.new()
+    post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
+    
+    response = JSON.parse(@response.body)
+    @controller = StoriesController.new()
+    assert_routing({ method: 'post', path: '/stories' }, { controller: "stories", action: "create" }) 
+    post :create, { 'api-key' => Application.first.api_key, 'auth-token' => response['auth_token'], name: "Kärleksståry", description: "Puss och gull och kram", latitude: 56.1246963, longitude: 13.7400308, creator_id: Creator.first.id }
+    assert_response :created
+  end
 end

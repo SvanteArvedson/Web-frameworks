@@ -41,13 +41,13 @@ class TagsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "POST /tags without auth-token 400" do
+  test "POST /tags without auth-token should return status 400" do
     assert_routing({ method: 'post', path: '/tags' }, { controller: "tags", action: "create" }) 
     post :create, { 'api-key' => Application.first.api_key, name: "romantiskt" }
     assert_response :bad_request
   end
   
-  test "POST /creators with valid api-key and auth-token and valid data should return status 201" do
+  test "POST /tags with valid api-key and auth-token and valid data should return status 201" do
     @controller = SessionsController.new()
     post :authenticate, { 'api-key' => Application.first.api_key, email: "creator.one@example.com", password: "hemligt" }
     
