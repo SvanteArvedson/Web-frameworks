@@ -19,6 +19,7 @@ class ErrorMessage
   
   private
   
+  # presents model errors
   def errors_presentation
     pres = {}
     

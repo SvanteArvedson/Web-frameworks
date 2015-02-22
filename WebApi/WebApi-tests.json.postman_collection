@@ -1,0 +1,840 @@
+{
+	"id": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+	"name": "WebApi-tests",
+	"description": "#WebApi tests\nThis collection contains all avaiable calls to my Web Api.",
+	"order": [
+		"9e45e8c0-ae0a-c454-83f9-0101d8bdcf7c",
+		"ea82535e-c6e8-fe9f-190a-c459bb21a432",
+		"36bd648f-5e81-fd18-6a4f-8d9324698211",
+		"c6032119-4538-172b-c985-fb85a896b9a6",
+		"b1952856-09cf-dc0b-916c-40f1f590f5bd",
+		"5a37f665-9637-d96b-d74d-cce62a0f64d1",
+		"528a5f43-577f-6cc7-3f94-e785eaa3a3bb",
+		"d45b4dc6-c980-aa65-0cd5-f06779c98c81",
+		"7c0f8017-7603-aa87-5079-d8e8b9d3c656",
+		"9b98aad1-b69c-4e06-5cd1-1d458b2fb03f",
+		"ce29e252-e3f3-a2ad-730c-e3e9c3c4f4eb",
+		"b22b90e5-116a-9f69-39e8-7d8b03a8a4ba",
+		"71ee2aa9-a9f6-5770-60e2-852aceb3e78c",
+		"bf3d1a74-4a75-038d-2912-92b6d9809d5c",
+		"10888586-0820-627c-3b84-c5d0efbf747d",
+		"b2b3ead4-1041-0289-9157-3e144c9470ac",
+		"8b83e31e-f145-c821-468e-5c13d593107e",
+		"f2e3733a-a1be-9357-45e1-b537fadbddf4",
+		"c36a31c8-49b3-aa9c-0b4e-5e7450f49ad4",
+		"1efe06ee-16cb-4f22-52e1-3873ca37fd29",
+		"66bcbfcc-4deb-f1be-e913-9aab7799644b",
+		"fcd0c006-6c21-b102-b89b-e54c8171c3a3",
+		"8cfe4973-2834-928d-91a5-db3763b30539",
+		"73c34eae-829d-231b-9b89-5486205eb3a5",
+		"98f8c8b5-e5db-dd51-7e0a-212f3edf06f3",
+		"66871e45-fbdb-226d-de20-3b38ff2cbd32",
+		"bdb232df-0a02-e6db-16da-ad2f4a7bd27f"
+	],
+	"folders": [],
+	"timestamp": 1424120868505,
+	"synced": false,
+	"remoteLink": "",
+	"requests": [
+		{
+			"id": "10888586-0820-627c-3b84-c5d0efbf747d",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags/1/stories?limit=1&offset=1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all stories with tag with id 1 with limit and offset",
+			"description": "This request get all stories with tag with id 1 with limit and offset.",
+			"descriptionFormat": "html",
+			"time": 1424610692284,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "1efe06ee-16cb-4f22-52e1-3873ca37fd29",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/authenticate",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519785176,
+			"name": "Valid authentication",
+			"description": "This request is a valid authentication request and returns a auth_token valid for one hour.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "36bd648f-5e81-fd18-6a4f-8d9324698211",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.swede@example.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password_confirmation",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519906463,
+			"name": "GET all stories",
+			"description": "This request get all stories.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "528a5f43-577f-6cc7-3f94-e785eaa3a3bb",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519981953,
+			"name": "GET all creators",
+			"description": "This request get all creators.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "5a37f665-9637-d96b-d74d-cce62a0f64d1",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags/1",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519966653,
+			"name": "GET tag with id 1",
+			"description": "This request get the tag with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "66871e45-fbdb-226d-de20-3b38ff2cbd32",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjoxLCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMlQxMjoyNzoyNS4wNjQrMDA6MDAifQ.FWE7L9yhgw2mNRdaNdWyW-etSsnzgOgPeCLfGk3wmQCu5sEjcXGdPaN22IcIDN71CjV6Hr8UwvuELMKntnglCQ\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/1/tags",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "tag-ids",
+					"value": "[\"1\"]",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424605035284,
+			"name": "POST update story tags",
+			"description": "This request updates tags for a story.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "66bcbfcc-4deb-f1be-e913-9aab7799644b",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/authenticate",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "password",
+					"value": "heligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519816414,
+			"name": "Unvalid authentication - wrong password",
+			"description": "This request is an unvalid authentication request, password is wrong.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "71ee2aa9-a9f6-5770-60e2-852aceb3e78c",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/nearby?latitude=56.161931&longitude=13.7762741",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all stories nearby latitude and longitude.",
+			"description": "This request get all stories nearby longitude and latitude arguments.",
+			"descriptionFormat": "html",
+			"time": 1424540154889,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "73c34eae-829d-231b-9b89-5486205eb3a5",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjoxLCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMlQxMDoyOToxMy44NDgrMDA6MDAifQ.WRqjzLsCSder8qZQMzvnJq5-TzlxcdjVE_SCzRgB9YfTCRaYh2UHqCNh8BbucGiahiP3yiYgg24XhCatbaEHyg\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "romantiskt",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "POST create new tag",
+			"description": "This request creates a new tag.",
+			"descriptionFormat": "html",
+			"time": 1424598412495,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "7c0f8017-7603-aa87-5079-d8e8b9d3c656",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags/1/stories",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424520029235,
+			"name": "GET all stories with tag with id 1",
+			"description": "This request get all stories with tag with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "8b83e31e-f145-c821-468e-5c13d593107e",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags?limit=2&offset=1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all tags with limit and offset",
+			"description": "This request get all tags with limit and offset.",
+			"descriptionFormat": "html",
+			"time": 1424610147520,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "8cfe4973-2834-928d-91a5-db3763b30539",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.swede@example.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password_confirmation",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519879695,
+			"name": "POST create new creator",
+			"description": "This request creats a new creator.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "98f8c8b5-e5db-dd51-7e0a-212f3edf06f3",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjoxLCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMlQxMzowNzoyNS4xMDMrMDA6MDAifQ.DbRMeK5gz6Qe3ZSlvWwpQQUPxndlE0wosLSRYr96DmDXxcKsN1vRcJ_Kod6RtADqcKhg9TTjSKCcCy6dTu8UJw\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Pengarståry",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Guld, rökelse och myrra.",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "latitude",
+					"value": "56.1266963",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "longitude",
+					"value": "13.7420308",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424607075820,
+			"name": "POST create new story",
+			"description": "This request creates a new story.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "9b98aad1-b69c-4e06-5cd1-1d458b2fb03f",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/1/tags",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424520043699,
+			"name": "GET all tags added to story with id 1",
+			"description": "This request get all tags added to story with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "9e45e8c0-ae0a-c454-83f9-0101d8bdcf7c",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjo2LCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMVQxOToyMjowMC41MzErMDA6MDAifQ.PLCSThD8PKjgOBseaRlpCeXVnH8Jiy5g-cSYu1Zx4bvLGBMNE0a2KsxG6e7LeYmBI8HVrdfAWOL0pEZM6Ac1DA\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators/6",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424542955892,
+			"name": "DELETE creator",
+			"description": "This request deletes a creator.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "b1952856-09cf-dc0b-916c-40f1f590f5bd",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/tags",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519951952,
+			"name": "GET all tags",
+			"description": "This request get all tags.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "b22b90e5-116a-9f69-39e8-7d8b03a8a4ba",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/search?query=blod",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424539911231,
+			"name": "GET all stories containing query words",
+			"description": "This request get all stories containing query words.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "b2b3ead4-1041-0289-9157-3e144c9470ac",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators/1/stories?limit=1&offset=1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all stories created by creator with id 1 with limit and offset",
+			"description": "This request get all stories created by creator with id 1 with limit and offset.",
+			"descriptionFormat": "html",
+			"time": 1424610840148,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "bdb232df-0a02-e6db-16da-ad2f4a7bd27f",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjoxLCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMlQxMzowNzoyNS4xMDMrMDA6MDAifQ.DbRMeK5gz6Qe3ZSlvWwpQQUPxndlE0wosLSRYr96DmDXxcKsN1vRcJ_Kod6RtADqcKhg9TTjSKCcCy6dTu8UJw\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "PUT",
+			"data": [
+				{
+					"key": "name",
+					"value": "Money story",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Gold Gold Gold",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "latitude",
+					"value": "56.1266963",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "longitude",
+					"value": "13.7420308",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "POST update a story",
+			"description": "This request updates a story.",
+			"descriptionFormat": "html",
+			"time": 1424608213947,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "bf3d1a74-4a75-038d-2912-92b6d9809d5c",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories?limit=2&offset=1",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424610576059,
+			"name": "GET all stories with limit and offset",
+			"description": "This request get all stories with limit and offset.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "c36a31c8-49b3-aa9c-0b4e-5e7450f49ad4",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators?limit=1&offset=1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all creators with limit and offset",
+			"description": "This request get all creators with limit and offset.",
+			"descriptionFormat": "html",
+			"time": 1424610922544,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "c6032119-4538-172b-c985-fb85a896b9a6",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/1",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.swede@example.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password_confirmation",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519929988,
+			"name": "GET story with id 1",
+			"description": "This request get the story with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "ce29e252-e3f3-a2ad-730c-e3e9c3c4f4eb",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators/1/stories",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424520056427,
+			"name": "GET all stories created by creator with id 1",
+			"description": "This request get all stories created by creator with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "d45b4dc6-c980-aa65-0cd5-f06779c98c81",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/creators/1",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424520010621,
+			"name": "GET creator with id 1",
+			"description": "This request get creator with id 1.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "ea82535e-c6e8-fe9f-190a-c459bb21a432",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\nauth-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJjcmVhdG9yX2lkIjo2LCJ0ZXJtaW5hdGVzX2F0IjoiMjAxNS0wMi0yMVQxOToyMjowMC41MzErMDA6MDAifQ.PLCSThD8PKjgOBseaRlpCeXVnH8Jiy5g-cSYu1Zx4bvLGBMNE0a2KsxG6e7LeYmBI8HVrdfAWOL0pEZM6Ac1DA\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/4",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"name": "DELETE story",
+			"description": "This request deletes a story.",
+			"descriptionFormat": "html",
+			"time": 1424609017612,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "f2e3733a-a1be-9357-45e1-b537fadbddf4",
+			"headers": "api-key: 3b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/stories/2/tags?limit=1&offset=1",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"name": "GET all tags added to story with id 1 with limit and offset",
+			"description": "This request get all tags added to story with id 1 with limit and offset.",
+			"descriptionFormat": "html",
+			"time": 1424610539874,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"synced": false
+		},
+		{
+			"id": "fcd0c006-6c21-b102-b89b-e54c8171c3a3",
+			"headers": "api-key: b30e1708903415d2c0a1718dda98f21\n",
+			"url": "http://webbramverk-186197.euw1-2.nitrousbox.com/authenticate",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "password",
+					"value": "hemligt",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "creator.one@example.com",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1424519842073,
+			"name": "Bad request - unvalid api_key",
+			"description": "This request is an unvalid request, api_key is unvalid.",
+			"collectionId": "2c70e907-173b-5d76-7318-1e06aa3e22e6",
+			"responses": [],
+			"synced": false
+		}
+	]
+}

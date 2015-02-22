@@ -1,9 +1,11 @@
 class SessionsController < ApplicationController
   before_action :require_api_key
   
+  # checks if email and password is valid
   def authenticate
     creator = Creator.find_by_email(params[:email])
     
+    # if valid password and email
     if creator && creator.authenticate(params[:password])
       # auth_token valid one hour 
       auth_token = AuthToken.new(creator.id, Time.now + 1.hours)

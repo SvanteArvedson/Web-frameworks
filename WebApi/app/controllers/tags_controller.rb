@@ -2,6 +2,7 @@ class TagsController < ApplicationController
   before_action :require_api_key
   before_action :require_auth_token, only: [ :create ]
   
+  # creates a new tag
   def create
     t = Tag.new(
       name: params[:name]
@@ -23,7 +24,9 @@ class TagsController < ApplicationController
     end
   end
   
+  # returns a collection of tag objects
   def index
+    # handles limit and offset parameters
     if params[:limit].present? && params[:offset].present?
       if params['story_id'].present?
         stories = Story.find(params['story_id'])
@@ -53,6 +56,7 @@ class TagsController < ApplicationController
     render json: respond
   end
   
+  # return a single tag object
   def show
     tag = Tag.find(params['id'])
     respond = {

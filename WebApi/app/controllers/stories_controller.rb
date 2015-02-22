@@ -2,7 +2,9 @@ class StoriesController < ApplicationController
   before_action :require_api_key
   before_action :require_auth_token, only: [ :add_tags, :create, :destroy, :update ]
   
+  # add tags to a story object
   def add_tags
+    # if parameter tag-ids isn't present
     if params['tag-ids'].nil?
       render json: ErrorMessage.new(
         'You must send an array with tag ids as an json string in parameter "tags".', 
@@ -10,6 +12,7 @@ class StoriesController < ApplicationController
         {}
         ), status: :bad_request
       return  
+      # if cretor trying to modify another creators story
     elsif auth_token['creator_id'] != Story.find(params[:story_id]).creator.id.to_i
       render json: ErrorMessage.new(
         "You must be logged as the creator of the story to modify it.", 
@@ -37,6 +40,7 @@ class StoriesController < ApplicationController
     end
   end
   
+  # creates a new story object
   def create
     s = Story.new(
       name: params[:name],
@@ -62,7 +66,9 @@ class StoriesController < ApplicationController
     end
   end
   
+  # deletes a story from the database
   def destroy
+    # if a creator is trying to delete another ctearors story
     if auth_token['creator_id'] != Story.find(params[:id]).creator.id.to_i
       render json: ErrorMessage.new(
         "You must be logged as the creator of the story to delete it.", 
@@ -80,7 +86,9 @@ class StoriesController < ApplicationController
     end
   end
   
+  # returns a collection of story objects
   def index
+    # can handle limit and offset parameters
     if params[:limit].present? && params[:offset].present?
       if params['tag_id'].present?
         tag = Tag.find(params['tag_id'])
@@ -117,7 +125,9 @@ class StoriesController < ApplicationController
     render json: respond
   end
   
+  # returns a collection of story objects near the position in parameters
   def nearby
+    # if parameters is missing
     if params['latitude'].nil? || params['longitude'].nil?
       message = ErrorMessage.new(
         "You must send latitude and longitude to get nearby stories", 
@@ -146,6 +156,7 @@ class StoriesController < ApplicationController
     end
   end
   
+  # returns a collection of stories matching a query (words)
   def search
     if params['query'].nil?
       message = ErrorMessage.new(
@@ -178,9 +189,9 @@ class StoriesController < ApplicationController
       
       render json: respond
     end
-    
   end
   
+  # returns a single story object
   def show
     story = Story.find(params['id'])
     respond = {
@@ -196,7 +207,9 @@ class StoriesController < ApplicationController
     render json: respond
   end
   
+  # updates a story object
   def update
+    # if a creator is trying to update another creators story
     if auth_token['creator_id'] != Story.find(params[:id]).creator.id.to_i
       render json: ErrorMessage.new(
         "You must be logged as the creator of the story to update it.", 

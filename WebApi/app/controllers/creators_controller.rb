@@ -2,6 +2,7 @@ class CreatorsController < ApplicationController
   before_action :require_api_key
   before_action :require_auth_token, only: [ :destroy ]
 
+  # creats a new creator object
   def create
     c = Creator.new(
       email: params['email'], 
@@ -25,7 +26,9 @@ class CreatorsController < ApplicationController
     end
   end
   
+  # deletes a creator object
   def destroy    
+    # if authenticated creator isn't the same as the trying to be deleted 
     if auth_token['creator_id'] != params['id'].to_i
       render json: ErrorMessage.new(
         "You must be logged as the creator to delete it.", 
@@ -41,11 +44,12 @@ class CreatorsController < ApplicationController
         message: "Creator have been deleted."
       }
       render json: respond
-    end
-    
+    end  
   end
 
+  # returns a collection of creators
   def index
+    # can take limit and offset parameters
     if params[:limit].present? && params[:offset].present? && params['story_id'].nil?
       creator_collection = CreatorCollection.new(Creator.all.order(:email).offset(params[:offset]).limit(params[:limit]))
     else
@@ -70,6 +74,7 @@ class CreatorsController < ApplicationController
     render json: respond
   end
   
+  # returns a single creator
   def show
     creator = Creator.find(params['id'])
     respond = {
