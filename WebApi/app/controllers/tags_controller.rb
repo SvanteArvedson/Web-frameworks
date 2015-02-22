@@ -24,11 +24,20 @@ class TagsController < ApplicationController
   end
   
   def index
-    # TODO_ implement limit and offset
-    if params['story_id'].present?
-      tag_collection = TagCollection.new(Story.find(params['story_id']).tags.order(:name))
+    if params[:limit].present? && params[:offset].present?
+      if params['story_id'].present?
+        stories = Story.find(params['story_id'])
+        tag_collection = TagCollection.new(stories.tags.order(:name).offset(params[:offset]).limit(params[:limit]))
+      else
+        tags = Tag.all.order(:name).offset(params[:offset]).limit(params[:limit])
+        tag_collection = TagCollection.new(tags)
+      end
     else
-      tag_collection = TagCollection.new(Tag.all.order(:name))
+      if params['story_id'].present?
+        tag_collection = TagCollection.new(Story.find(params['story_id']).tags.order(:name))
+      else
+        tag_collection = TagCollection.new(Tag.all.order(:name))
+      end
     end
     
     respond = {

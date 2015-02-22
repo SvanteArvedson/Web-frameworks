@@ -81,13 +81,26 @@ class StoriesController < ApplicationController
   end
   
   def index
-    # TODO: implement limit and offset
-    if params['tag_id'].present?
-      story_collection = StoryCollection.new(Tag.find(params['tag_id']).stories.order(updated_at: :desc))
-    elsif params['creator_id'].present?
-      story_collection = StoryCollection.new(Creator.find(params['creator_id']).stories.order(updated_at: :desc))
+    if params[:limit].present? && params[:offset].present?
+      if params['tag_id'].present?
+        tag = Tag.find(params['tag_id'])
+        stories = tag.stories.order(updated_at: :desc).offset(params[:offset]).limit(params[:limit])
+        story_collection = StoryCollection.new(stories)
+      elsif params['creator_id'].present?
+        creator = Creator.find(params['creator_id'])
+        stories = creator.stories.order(updated_at: :desc).offset(params[:offset]).limit(params[:limit])
+        story_collection = StoryCollection.new(stories)
+      else
+        story_collection = StoryCollection.new(Story.all.order(updated_at: :desc).offset(params[:offset]).limit(params[:limit]))
+      end
     else
-      story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
+      if params['tag_id'].present?
+        story_collection = StoryCollection.new(Tag.find(params['tag_id']).stories.order(updated_at: :desc))
+      elsif params['creator_id'].present?
+        story_collection = StoryCollection.new(Creator.find(params['creator_id']).stories.order(updated_at: :desc))
+      else
+        story_collection = StoryCollection.new(Story.all.order(updated_at: :desc))
+      end
     end
     
     respond = {

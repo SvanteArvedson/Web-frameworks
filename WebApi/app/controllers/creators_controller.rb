@@ -46,11 +46,14 @@ class CreatorsController < ApplicationController
   end
 
   def index
-    # TODO_ implement limit and offset
-    if params['story_id'].present?
-      creator_collection = CreatorCollection.new([Story.find(params['story_id']).creator])
+    if params[:limit].present? && params[:offset].present? && params['story_id'].nil?
+      creator_collection = CreatorCollection.new(Creator.all.order(:email).offset(params[:offset]).limit(params[:limit]))
     else
-      creator_collection = CreatorCollection.new(Creator.all.order(:email))
+      if params['story_id'].present?
+        creator_collection = CreatorCollection.new([Story.find(params['story_id']).creator])
+      else
+        creator_collection = CreatorCollection.new(Creator.all.order(:email))
+      end
     end
     
     respond = {
