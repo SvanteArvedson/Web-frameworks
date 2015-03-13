@@ -1,0 +1,57 @@
+<div data-ng-show="stories.searchVisible" class="row" >
+	<div class="col-xs-12">
+		<div id="filterPanel" class="panel panel-default">
+			<div class="panel-heading">
+				<h2 id="filterHeader">Sök historier</h2>
+			</div>
+			<div class="panel-body text-center">
+				<form class="form-inline">
+					<div class="form-group col-md-4 col-sm-6 col-xs-12">
+						<label for="queryField">Fritext</label>
+						<input id="queryField" class="form-control" type="text" placeholder="fritext" />
+					</div>
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label for="creatorField">Skapare</label>
+						<select id="creatorField" class="form-control">
+							<option>Skapare 1</option>
+						  	<option>Skapare 2</option>
+						  	<option>Skapare 3</option>
+						  	<option>Skapare 4</option>
+						  	<option>Skapare 5</option>
+						</select>
+					</div>
+					<div class="filter form-group col-md-3 col-sm-6 col-xs-12">
+						<label for="tagField">Tagg</label>
+						<select id="tagField" class="form-control">
+							<option>Tag 1</option>
+						  	<option>Tag 2</option>
+						  	<option>Tag 3</option>
+						  	<option>Tag 4</option>
+						  	<option>Tag 5</option>
+						</select>
+					</div>
+					<div class="filter form-group col-md-2 col-sm-6 col-xs-12">
+						<button type="submit" class="btn btn-default">Sök</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="text-right col-xs-12">
+		<a id="searchToggle" data-ng-click="stories.toggleSearch()">{{ stories.searchToggleText }}</a>
+	</div>
+</div>
+<div id="mapStoriesContainer" class="row">
+	<div id="mapContainer" class="col-xs-12 col-md-7">
+		<div id="mapCanvas" class="panel panel-default">
+			
+		</div>
+	</div>
+	<div id="storiesContainer" class="col-xs-12 col-md-5">
+		<div id="stories" class="panel panel-default">
+			
+		</div>
+	</div>
+</div>

@@ -6,6 +6,9 @@
 	margin: 0;
 	font-size: 2rem;
 }
+#searchToggle {
+	cursor: pointer;
+}
 @media (min-width: 768px) and (max-width: 992px) {
 	.filter {
 		margin-top: 1rem;
