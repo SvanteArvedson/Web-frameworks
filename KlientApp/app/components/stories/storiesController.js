@@ -16,22 +16,8 @@ angular
 			}
 		};
 		
-		// Starts by getting all stories
-		storiesService.get()
-			.success(function(data, status, headers, config) {
-				console.log("SUCCESS");
-				console.log(data);
-				console.log(status);
-				console.log(headers());
-				console.log(config);
-			})
-			.error(function(data, status, headers, config) {
-				console.log("ERROR");
-				console.log(data);
-				console.log(status);
-				console.log(headers());
-				console.log(config);
-			});
-		
+		// Gets and display all stories
+		storiesService.get().then(function(data) {
+			vm.stories = data;
+		});		
 	}]);
-	

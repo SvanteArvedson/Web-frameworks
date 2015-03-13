@@ -40,7 +40,7 @@
 </div>
 <div class="row">
 	<div class="text-right col-xs-12">
-		<a id="searchToggle" data-ng-click="stories.toggleSearch()">{{ stories.searchToggleText }}</a>
+		<a id="searchToggle" data-ng-bind="stories.searchToggleText" data-ng-click="stories.toggleSearch()"></a>
 	</div>
 </div>
 <div id="mapStoriesContainer" class="row">
@@ -51,7 +51,26 @@
 	</div>
 	<div id="storiesContainer" class="col-xs-12 col-md-5">
 		<div id="stories" class="panel panel-default">
-			
+			<ul>
+				<li data-ng-repeat="story in stories.stories track by $index">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 data-ng-bind="story.name"></h3>
+						</div>
+						<div class="panel-body">
+							<p>
+								<strong>Författare: </strong>
+								<span data-ng-bind="story.creator.email"></span></p>
+							<p>
+								<strong>Berättelse: </strong>
+								<span data-ng-bind="story.description"></span></p>
+							<p>
+								<strong>Taggar: </strong>
+								<span data-ng-repeat="tag in story.tags track by $index" data-ng-bind="tag.name + ' '"></span></p>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
