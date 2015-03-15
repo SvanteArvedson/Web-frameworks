@@ -1,5 +1,5 @@
 angular
-	.module('clientApp', ['ngRoute'])
+	.module('clientApp', ['ngRoute', 'ngMap'])
 	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {
@@ -11,4 +11,10 @@ angular
           		redirectTo: '/'
         	});
 		$locationProvider.html5Mode(true);
+		
+		/*uiGmapGoogleMapApiProvider.configure({
+	        key: 'AIzaSyCSrgWJ3z9FBw0euGCh5nKXuup6X-T-J0Q',
+	        v: '3.17',
+	        libraries: 'weather,geometry,visualization'
+	    });*/
 	}]);

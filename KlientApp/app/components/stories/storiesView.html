@@ -44,12 +44,14 @@
 	</div>
 </div>
 <div id="mapStoriesContainer" class="row">
-	<div id="mapContainer" class="col-xs-12 col-md-7">
-		<div id="mapCanvas" class="panel panel-default">
-			
-		</div>
+	
+	<div id="mapContainer" class="col-xs-12 col-md-6 panel panel-default">
+		<map id="mapCanvas" center="63, 17" zoom="5">
+			<marker data-ng-repeat="story in stories.stories track by $index" position="{{ story.position.latitude + ', ' + story.position.longitude }}" title="{{ story.name }}"></marker>
+		</map>
 	</div>
-	<div id="storiesContainer" class="col-xs-12 col-md-5">
+	
+	<div id="storiesContainer" class="col-xs-12 col-md-6">
 		<div id="stories" class="panel panel-default">
 			<ul>
 				<li data-ng-repeat="story in stories.stories track by $index">

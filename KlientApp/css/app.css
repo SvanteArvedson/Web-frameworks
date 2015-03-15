@@ -18,18 +18,18 @@
 /* ------ Map and Stories ------ */
 #mapStoriesContainer {
 	margin-top: 15px;
+	margin-left: 0;
 }
 	/* ------ Map ------ */
-	#mapCanvas {
-		height: 500px;
+	#mapContainer {
+		padding: 0;
+		height: 750px;
 		margin-bottom: 5px;
 	}
-	@media (min-width: 992px) {
-		#mapContainer {
-			padding-right: 5px;
-		}
+	#mapCanvas {
+		height: 100%;
+		width: 100%;
 	}
-	
 	/* ------ Stories ------ */
 	#stories {
 		height: 250px;
@@ -58,6 +58,6 @@
 			padding-left: 5px;
 		}
 		#stories {
-			height: 500px;
+			height: 750px;
 		}
 	}

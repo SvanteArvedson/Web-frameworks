@@ -19,5 +19,7 @@ angular
 		// Gets and display all stories
 		storiesService.get().then(function(data) {
 			vm.stories = data;
-		});		
+			console.log(vm.stories);
+		});
+
 	}]);
