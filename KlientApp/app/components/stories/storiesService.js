@@ -29,6 +29,34 @@ angular
 		};
 		
 		/**
+		 * Fetch all stories from api. 
+		 */
+		storiesService.search = function(query) {
+			var deferred = $q.defer();
+			
+			var request = {
+				method: 'GET',
+				url: apiConstants.url + 'stories/search',
+				headers: {
+					'api-key': apiConstants.apiKey
+				},
+	            params: {
+	                'query': query
+	            }
+			};
+			
+			$http(request)
+				.success(function(data, status, headers, config) {
+					deferred.resolve(createStories(data.stories));
+				})
+				.error(function(data, status, headers, config) {
+					deferred.reject("ERROR STORIES");
+				});
+				
+			return deferred.promise;
+		};
+		
+		/**
 		 * Looping through all items in rawStories and calls createStory()
 		 * 
 		 * @param Array rawStories All stories from api.
