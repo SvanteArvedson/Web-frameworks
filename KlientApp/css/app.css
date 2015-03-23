@@ -1,0 +1,63 @@
+/* ------ Filter ------ */
+#filterPanel {
+	margin: 0;
+}
+#filterHeader {
+	margin: 0;
+	font-size: 2rem;
+}
+#searchToggle {
+	cursor: pointer;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+	.filter {
+		margin-top: 1rem;
+	}
+}
+
+/* ------ Map and Stories ------ */
+#mapStoriesContainer {
+	margin-top: 15px;
+	margin-left: 0;
+}
+	/* ------ Map ------ */
+	#mapContainer {
+		padding: 0;
+		height: 750px;
+		margin-bottom: 5px;
+	}
+	#mapCanvas {
+		height: 100%;
+		width: 100%;
+	}
+	/* ------ Stories ------ */
+	#stories {
+		height: 250px;
+		margin-bottom: 5px;
+		overflow-y: scroll; 
+	}
+	#stories::-webkit-scrollbar {
+		display: none;
+	}
+	#stories ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	#stories ul li .panel {
+		border-width: 2px;
+		margin-bottom: 0;
+	}
+	#stories .panel-heading h3 {
+		margin: 0;
+		font-size: 1.6rem;
+		font-weight: bold;
+	}
+	@media (min-width: 992px) {
+		#storiesContainer {
+			padding-left: 5px;
+		}
+		#stories {
+			height: 750px;
+		}
+	}
