@@ -84,7 +84,7 @@ class CreatorsController < ApplicationController
         all_stories: Rails.configuration.baseurl + stories_path,
         all_tags: Rails.configuration.baseurl + tags_path
       },
-      story: creator.presentation
+      creator: creator.presentation
     }
     
     render json: respond

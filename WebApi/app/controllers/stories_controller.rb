@@ -166,7 +166,7 @@ class StoriesController < ApplicationController
       )
       render json: message, status: :bad_request
     else
-      querys = params['query'].split(/\W+/)
+      querys = params['query'].split(/[\s]+/)
       stories = []
       
       querys.each do |query|
