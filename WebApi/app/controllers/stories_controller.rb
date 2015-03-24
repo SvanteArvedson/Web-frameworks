@@ -156,37 +156,51 @@ class StoriesController < ApplicationController
     end
   end
   
-  # returns a collection of stories matching a query (words)
+  # returns a collection of stories matching a query (words, tag or/and creator)
   def search
-    if params['query'].nil?
+    if params['query'].nil? && params['tag'].nil? && params['creator'].nil?
       message = ErrorMessage.new(
-        "You must send a query to do a search", 
-        "You must send a query to do a search",
+        "You must send a query, tag or creator to do a search", 
+        "You must send a query, tag or creator to do a search",
         {}
       )
       render json: message, status: :bad_request
     else
-      querys = params['query'].split(/[\s]+/)
-      stories = []
-      
-      querys.each do |query|
-        stories += Story.where("name LIKE ? OR description LIKE ?", "%" + query + "%", "%" + query + "%")
+      stories = [];
+      if params['tag'].present?
+        stories = Tag.find(params['tag']).stories
+      end
+      if params['creator'].present?
+        if stories.length == 0
+          stories = Creator.find(params['creator']).stories
+        else
+          stories = stories.select { |x| x.creator.id.to_s === params['creator'].to_s }
+        end
+      end
+      if params['query'].present?
+        if stories.length == 0
+          stories = Story.where("name LIKE ? OR description LIKE ?", "%" + params['query'] + "%", "%" + params['query'] + "%")
+        else
+          # else, filter stories to only contain stories matching queries
+          stories = stories.select { |x| x.name.include? params['query'] or x.description.include? params['query'] }
+        end
       end
       
+      # return result
       story_collection = StoryCollection.new(stories)
-      
       respond = {
         query: params['query'],
+        creator: params['creator'],
+        tag: params['tag'],
         number_of_stories: story_collection.length,
         urls: {
           self: request.url,
           all_creators: Rails.configuration.baseurl + creators_path,
           all_stories: Rails.configuration.baseurl + stories_path,
           all_tags: Rails.configuration.baseurl + tags_path
-        },
+          },
         stories: story_collection.presentation
-      }
-      
+        }
       render json: respond
     end
   end
