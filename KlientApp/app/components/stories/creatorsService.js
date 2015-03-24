@@ -48,8 +48,10 @@ angular
 		 */
 		function createCreator(rawCreator) {
 			return {
-				label: rawCreator.email,
-				value: rawCreator.id
+				id: rawCreator.id,
+				email: rawCreator.email,
+				createdAt: rawCreator.created_at,
+				updatedAt: rawCreator.updated_at
 			};
 		};
 		

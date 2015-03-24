@@ -48,8 +48,10 @@ angular
 		 */
 		function createTag(rawTag) {
 			return {
-				label: rawTag.name,
-				value: rawTag.id
+				id: rawTag.id,
+				name: rawTag.name,
+				createdAt: rawTag.created_at,
+				updatedAt: rawTag.updated_at
 			};
 		};
 		

@@ -12,14 +12,16 @@
 					</div>
 					<div class="form-group col-md-4 col-sm-6 col-xs-12">
 						<label for="creatorField">Skapare</label>
-						<select id="creatorField" class="form-control" data-ng-model="stories.searchCreatorValue" data-ng-options="opt.label for opt in stories.searchCreatorOptions track by opt.value"></select>
+						<select id="creatorField" class="form-control" data-ng-model="stories.searchCreatorValue" data-ng-options="opt.email for opt in stories.searchCreatorOptions track by opt.id"></select>
 					</div>
 					<div class="filter form-group col-md-3 col-sm-6 col-xs-12">
 						<label for="tagField">Tagg</label>
-						<select id="tagField" class="form-control" data-ng-model="stories.searchTagValue" data-ng-options="opt.label for opt in stories.searchTagOptions track by opt.value"></select>
+						<select id="tagField" class="form-control" data-ng-model="stories.searchTagValue" data-ng-options="opt.name for opt in stories.searchTagOptions track by opt.id"></select>
 					</div>
 					<div class="filter form-group col-md-2 col-sm-6 col-xs-12">
-						<button data-ng-click="stories.searchStories()" type="submit" class="btn btn-default">Sök</button>
+						<button data-ng-click="stories.searchStories()" type="submit" class="btn btn-default">
+							Sök
+						</button>
 					</div>
 				</form>
 			</div>
@@ -32,17 +34,18 @@
 	</div>
 </div>
 <div id="mapStoriesContainer" class="row">
-	
+
 	<div id="mapContainer" class="col-xs-12 col-md-6 panel panel-default">
 		<map id="mapCanvas" center="63, 17" zoom="5">
-			<marker data-ng-repeat="story in stories.stories track by $index" position="{{ story.position.latitude + ', ' + story.position.longitude }}" title="{{ story.name }}"></marker>
+			<marker data-ng-repeat="story in stories.stories" on-click="stories.showInfoWindow(event, story)" position="{{ story.position.latitude + ', ' + story.position.longitude }}" title="{{ story.name }}"></marker>
 		</map>
+
 	</div>
-	
+
 	<div id="storiesContainer" class="col-xs-12 col-md-6">
 		<div id="stories" class="panel panel-default">
 			<ul>
-				<li data-ng-repeat="story in stories.stories track by $index">
+				<li data-ng-click="stories.showInfoWindow(event, story)" data-ng-repeat="story in stories.stories">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 data-ng-bind="story.name"></h3>
@@ -50,13 +53,16 @@
 						<div class="panel-body">
 							<p>
 								<strong>Författare: </strong>
-								<span data-ng-bind="story.creator.email"></span></p>
+								<span data-ng-bind="story.creator.email"></span>
+							</p>
 							<p>
 								<strong>Berättelse: </strong>
-								<span data-ng-bind="story.description"></span></p>
+								<span data-ng-bind="story.description"></span>
+							</p>
 							<p>
 								<strong>Taggar: </strong>
-								<span data-ng-repeat="tag in story.tags track by $index" data-ng-bind="tag.name + ' '"></span></p>
+								<span data-ng-repeat="tag in story.tags track by $index" data-ng-bind="tag.name + ' '"></span>
+							</p>
 						</div>
 					</div>
 				</li>

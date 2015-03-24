@@ -45,6 +45,7 @@
 		margin: 0;
 	}
 	#stories ul li .panel {
+		cursor: pointer;
 		border-width: 2px;
 		margin-bottom: 0;
 	}
