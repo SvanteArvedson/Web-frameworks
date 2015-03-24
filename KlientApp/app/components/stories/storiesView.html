@@ -6,30 +6,17 @@
 			</div>
 			<div class="panel-body text-center">
 				<form class="form-inline">
-					<div class="form-group col-md-4 col-sm-6 col-xs-12">
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
 						<label for="queryField">Fritext</label>
 						<input data-ng-model="stories.query" id="queryField" class="form-control" type="text" placeholder="fritext" />
 					</div>
-					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+					<div class="form-group col-md-4 col-sm-6 col-xs-12">
 						<label for="creatorField">Skapare</label>
-						<select id="creatorField" class="form-control" data-ng-model="stories.searchCreatorValue" data-ng-options="opt.label as opt.label for opt in stories.searchCreatorOptions"></select>
-						<!--<select id="creatorField" class="form-control">
-							<option>Skapare 1</option>
-						  	<option>Skapare 2</option>
-						  	<option>Skapare 3</option>
-						  	<option>Skapare 4</option>
-						  	<option>Skapare 5</option>
-						</select>-->
+						<select id="creatorField" class="form-control" data-ng-model="stories.searchCreatorValue" data-ng-options="opt.label for opt in stories.searchCreatorOptions track by opt.value"></select>
 					</div>
 					<div class="filter form-group col-md-3 col-sm-6 col-xs-12">
 						<label for="tagField">Tagg</label>
-						<select id="tagField" class="form-control">
-							<option>Tag 1</option>
-						  	<option>Tag 2</option>
-						  	<option>Tag 3</option>
-						  	<option>Tag 4</option>
-						  	<option>Tag 5</option>
-						</select>
+						<select id="tagField" class="form-control" data-ng-model="stories.searchTagValue" data-ng-options="opt.label for opt in stories.searchTagOptions track by opt.value"></select>
 					</div>
 					<div class="filter form-group col-md-2 col-sm-6 col-xs-12">
 						<button data-ng-click="stories.searchStories()" type="submit" class="btn btn-default">Sök</button>

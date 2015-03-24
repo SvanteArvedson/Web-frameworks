@@ -1,6 +1,6 @@
 angular
 	.module('clientApp')
-	.controller('storiesController', ['StoriesService', function(storiesService) {
+	.controller('storiesController', ['StoriesService', 'TagsService', 'CreatorsService', function(storiesService, tagsService, creatorsService) {
 		var vm = this;
 		
 		// For search functionality
@@ -8,16 +8,14 @@ angular
 		vm.searchToggleText = "göm sökfältet";
 		
 		vm.query = "";
+		
 		vm.searchCreatorOptions = [
-			{ label: 'Alla1', value: 0 },
-			{ label: 'Alla2', value: 1 },
-			{ label: 'Alla3', value: 2 },
-			{ label: 'Alla4', value: 3 },
-			{ label: 'Alla5', value: 4 }
+			{ label: 'Alla', value: 0 }
 		];
 		vm.searchCreatorValue = vm.searchCreatorOptions[0];
+		
 		vm.searchTagOptions = [
-			{ label: 'Alla', value: -1 }
+			{ label: 'Alla', value: 0 }
 		];
 		vm.searchTagValue = vm.searchTagOptions[0];
 		
@@ -43,4 +41,13 @@ angular
 			vm.stories = data;
 		});
 
+		// Gets all creators for select box
+		creatorsService.get().then(function(data) {
+			vm.searchCreatorOptions = vm.searchCreatorOptions.concat(data);
+		});
+		
+		// Gets all tags for select box
+		tagsService.get().then(function(data) {
+			vm.searchTagOptions = vm.searchTagOptions.concat(data);
+		});
 	}]);

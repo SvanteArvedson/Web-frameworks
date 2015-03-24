@@ -1,17 +1,17 @@
 angular
 	.module('clientApp')
-	.factory('TagsService', ['$http' ,'apiConstants', '$q' ,function($http, apiConstants, $q) {
-		var tagsService = {};
+	.factory('CreatorsService', ['$http' ,'apiConstants', '$q' ,function($http, apiConstants, $q) {
+		var creatorsService = {};
 		
 		/**
 		 * Fetch all tags from api. 
 		 */
-		tagsService.get = function() {
+		creatorsService.get = function() {
 			var deferred = $q.defer();
 			
 			var request = {
 				method: 'GET',
-				url: apiConstants.url + 'tags',
+				url: apiConstants.url + 'creators',
 				headers: {
 					'api-key': apiConstants.apiKey
 				}
@@ -19,10 +19,10 @@ angular
 			
 			$http(request)
 				.success(function(data, status, headers, config) {
-					deferred.resolve(createTags(data.tags));
+					deferred.resolve(createCreators(data.creators));
 				})
 				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR TAGS");
+					deferred.reject("ERROR CREATORS");
 				});
 				
 			return deferred.promise;
@@ -33,10 +33,10 @@ angular
 		 * 
 		 * @param Object rawTags
 		 */
-		function createTags(rawTags) {
+		function createCreators(rawCreators) {
 			var ret = [];
-			rawTags.forEach(function(element, index, array) {
-				ret.push(createTag(element));
+			rawCreators.forEach(function(element, index, array) {
+				ret.push(createCreator(element));
 			});
 			return ret;
 		};
@@ -46,12 +46,12 @@ angular
 		 * 
 		 * @param Object rawTag
 		 */
-		function createTag(rawTag) {
+		function createCreator(rawCreator) {
 			return {
-				label: rawTag.name,
-				value: rawTag.id
+				label: rawCreator.email,
+				value: rawCreator.id
 			};
 		};
 		
-		return tagsService;
+		return creatorsService;
 	}]);
