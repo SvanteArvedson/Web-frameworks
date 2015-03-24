@@ -9,11 +9,15 @@ angular
 		
 		vm.query = "";
 		vm.searchCreatorOptions = [
-			{ name: 'Alla', id: -1 }
+			{ label: 'Alla1', value: 0 },
+			{ label: 'Alla2', value: 1 },
+			{ label: 'Alla3', value: 2 },
+			{ label: 'Alla4', value: 3 },
+			{ label: 'Alla5', value: 4 }
 		];
 		vm.searchCreatorValue = vm.searchCreatorOptions[0];
 		vm.searchTagOptions = [
-			{ name: 'Alla', id: -1 }
+			{ label: 'Alla', value: -1 }
 		];
 		vm.searchTagValue = vm.searchTagOptions[0];
 		
