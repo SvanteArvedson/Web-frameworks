@@ -166,20 +166,24 @@ class StoriesController < ApplicationController
       )
       render json: message, status: :bad_request
     else
-      stories = [];
+      stories = []
+      fetched = false
       if params['tag'].present?
         stories = Tag.find(params['tag']).stories
+        fetched = true
       end
       if params['creator'].present?
-        if stories.length == 0
+        unless fetched
           stories = Creator.find(params['creator']).stories
+          fetched = true
         else
-          stories = stories.select { |x| x.creator.id.to_s === params['creator'].to_s }
+          stories = stories.select { |x| x.creator_id === params['creator'] }
         end
       end
       if params['query'].present?
-        if stories.length == 0
+        unless fetched
           stories = Story.where("name LIKE ? OR description LIKE ?", "%" + params['query'] + "%", "%" + params['query'] + "%")
+          fetched = true
         else
           # else, filter stories to only contain stories matching queries
           stories = stories.select { |x| x.name.include? params['query'] or x.description.include? params['query'] }
