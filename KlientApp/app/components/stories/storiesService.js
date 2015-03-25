@@ -1,41 +1,51 @@
-angular
-	.module('clientApp')
-	.factory('StoriesService', ['$http' ,'apiConstants', '$q' ,function($http, apiConstants, $q) {
-		var storiesService = {};
-		
-		/**
-		 * Fetch all stories from api. 
-		 */
-		storiesService.get = function() {
-			var deferred = $q.defer();
-			
+angular.module('clientApp').factory('StoriesService', ['$http', 'apiConstants', '$q', 'localStorageService',
+function($http, apiConstants, $q, localStorage) {
+	var storiesService = {};
+
+	/**
+	 * Fetch all stories from api.
+	 */
+	storiesService.get = function() {
+		var url = apiConstants.url + 'stories';
+		var dataFromStorage = localStorage.get(url);
+		var deferred = $q.defer();
+
+		// stale after 30 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+			deferred.resolve(createStories(dataFromStorage.data.stories));
+		} else {
 			var request = {
-				method: 'GET',
-				url: apiConstants.url + 'stories',
-				headers: {
-					'api-key': apiConstants.apiKey
+				method : 'GET',
+				url : url,
+				headers : {
+					'api-key' : apiConstants.apiKey
 				}
 			};
-			
-			$http(request)
-				.success(function(data, status, headers, config) {
-					deferred.resolve(createStories(data.stories));
-				})
-				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR STORIES");
-				});
-				
-			return deferred.promise;
-		};
-		
-		/**
-		 * Fetch all stories from api matching query. 
-		 */
-		storiesService.search = function(query, creator, tag) {
-			var deferred = $q.defer();
-			
+
+			$http(request).success(function(data, status, headers, config) {
+				dataToStorage = { timestamp: Date.now(), data: data };
+				localStorage.set(url, dataToStorage);
+				deferred.resolve(createStories(data.stories));
+			}).error(function(data, status, headers, config) {
+				deferred.reject("ERROR STORIES");
+			});
+		}
+
+		return deferred.promise;
+	};
+
+	/**
+	 * Fetch all stories from api matching query.
+	 */
+	storiesService.search = function(query, creator, tag) {
+		var url = apiConstants.url + 'stories/search';
+		var dataFromStorage = localStorage.get(url + "-" + query + "-" + creator.id + "-" + tag.id);
+		var deferred = $q.defer();
+
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+			deferred.resolve(createStories(dataFromStorage.data.stories));
+		} else {
 			var params = {};
-			
 			if (query) {
 				params.query = query;
 			}
@@ -45,109 +55,121 @@ angular
 			if (tag.id != 0) {
 				params.tag = tag.id;
 			}
-			
 			var request = {
-				method: 'GET',
-				url: apiConstants.url + 'stories/search',
-				headers: {
-					'api-key': apiConstants.apiKey
+				method : 'GET',
+				url : url,
+				headers : {
+					'api-key' : apiConstants.apiKey
 				},
-	            params: params
+				params : params
 			};
-			
-			$http(request)
-				.success(function(data, status, headers, config) {
-					deferred.resolve(createStories(data.stories));
-				})
-				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR STORIES");
-				});
-				
-			return deferred.promise;
-		};
-		
-		/**
-		 * Looping through all items in rawStories and calls createStory()
-		 * 
-		 * @param Array rawStories All stories from api.
-		 * @return Array An array with complete story objects
-		 */
-		function createStories(rawStories) {
-			var ret = [];
-			rawStories.forEach(function(element, index, array) {
-				ret.push(createStory(element));
+			$http(request).success(function(data, status, headers, config) {
+				dataToStorage = { timestamp: Date.now(), data: data };
+				localStorage.set(url + "-" + query + "-" + creator.id + "-" + tag.id, dataToStorage);
+				deferred.resolve(createStories(data.stories));
+			}).error(function(data, status, headers, config) {
+				deferred.reject("ERROR STORIES");
 			});
-			return ret;
 		}
 		
-		/**
-		 * Fetch creator information and tags for story.
-		 * 
-		 * @param Object story A story object
-		 * @return Object A story object
-		 */
-		function createStory(story) {
-			getCreator(story.creator).then(function(data) {
-				story.creator = data;
-			});
-			getTags(story.tags).then(function(data) {
-				story.tags = data;
-			});
-			return story;
-		}
-		
-		/**
-		 * Fetch creator object from api.
-		 * 
-		 * @param String urlToCreator
-		 */
-		function getCreator(urlToCreator) {
-			var deferred = $q.defer();
-			
+
+		return deferred.promise;
+	};
+
+	/**
+	 * Looping through all items in rawStories and calls createStory()
+	 *
+	 * @param Array rawStories All stories from api.
+	 * @return Array An array with complete story objects
+	 */
+	function createStories(rawStories) {
+		var ret = [];
+		rawStories.forEach(function(element, index, array) {
+			ret.push(createStory(element));
+		});
+		return ret;
+	}
+
+	/**
+	 * Fetch creator information and tags for story.
+	 *
+	 * @param Object story A story object
+	 * @return Object A story object
+	 */
+	function createStory(story) {
+		getCreator(story.creator).then(function(data) {
+			story.creator = data;
+		});
+		getTags(story.tags).then(function(data) {
+			story.tags = data;
+		});
+		return story;
+	}
+
+	/**
+	 * Fetch creator object from api.
+	 *
+	 * @param String urlToCreator
+	 */
+	function getCreator(urlToCreator) {
+		var dataFromStorage = localStorage.get(urlToCreator);
+		var deferred = $q.defer();
+
+		// stale after 30 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+			deferred.resolve(dataFromStorage.data.creator);
+		} else {
 			var request = {
-				method: 'GET',
-				url: urlToCreator,
-				headers: {
-					'api-key': apiConstants.apiKey
+				method : 'GET',
+				url : urlToCreator,
+				headers : {
+					'api-key' : apiConstants.apiKey
 				}
 			};
-			$http(request)
-				.success(function(data, status, headers, config) {
-					deferred.resolve(data.creator);
-				})
-				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR CREATOR");
-				});
-			
-			return deferred.promise;
+			$http(request).success(function(data, status, headers, config) {
+				dataToStorage = { timestamp: Date.now(), data: data };
+				localStorage.set(urlToCreator, dataToStorage);
+				deferred.resolve(data.creator);
+			}).error(function(data, status, headers, config) {
+				deferred.reject("ERROR CREATOR");
+			});
 		}
-		
-		/**
-		 * Fetch tag objects from api.
-		 * 
-		 * @param String urlToTags
-		 */
-		function getTags(urlToTags) {
-			var deferred = $q.defer();
-			
+
+		return deferred.promise;
+	}
+
+	/**
+	 * Fetch tag objects from api.
+	 *
+	 * @param String urlToTags
+	 */
+	function getTags(urlToTags) {
+		var dataFromStorage = localStorage.get(urlToTags);
+		var deferred = $q.defer();
+
+		// stale after 30 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+			deferred.resolve(dataFromStorage.data.tags);
+		} else {
 			var request = {
-				method: 'GET',
-				url: urlToTags,
-				headers: {
-					'api-key': apiConstants.apiKey
+				method : 'GET',
+				url : urlToTags,
+				headers : {
+					'api-key' : apiConstants.apiKey
 				}
 			};
-			
-			$http(request)
-				.success(function(data, status, headers, config) {
-					deferred.resolve(data.tags);
-				})
-				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR TAGS");
-				});
-			
-			return deferred.promise;
+	
+			$http(request).success(function(data, status, headers, config) {
+				dataToStorage = { timestamp: Date.now(), data: data };
+				localStorage.set(urlToTags, dataToStorage);
+				deferred.resolve(data.tags);
+			}).error(function(data, status, headers, config) {
+				deferred.reject("ERROR TAGS");
+			});
 		}
-		
-		return storiesService;
-	}]);
+
+		return deferred.promise;
+	}
+
+	return storiesService;
+}]); 

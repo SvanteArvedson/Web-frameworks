@@ -5,7 +5,7 @@
 				<h2 id="filterHeader">Sök historier</h2>
 			</div>
 			<div class="panel-body text-center">
-				<form class="form-inline">
+				<form data-ng-submit="stories.searchStories()" class="form-inline">
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">
 						<label for="queryField">Fritext</label>
 						<input data-ng-model="stories.query" id="queryField" class="form-control" type="text" placeholder="fritext" />
@@ -19,9 +19,7 @@
 						<select id="tagField" class="form-control" data-ng-model="stories.searchTagValue" data-ng-options="opt.name for opt in stories.searchTagOptions track by opt.id"></select>
 					</div>
 					<div class="filter form-group col-md-2 col-sm-6 col-xs-12">
-						<button data-ng-click="stories.searchStories()" type="submit" class="btn btn-default">
-							Sök
-						</button>
+						<button type="submit" class="btn btn-default">Sök</button>
 					</div>
 				</form>
 			</div>

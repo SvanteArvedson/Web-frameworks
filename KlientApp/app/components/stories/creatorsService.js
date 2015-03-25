@@ -1,30 +1,38 @@
 angular
 	.module('clientApp')
-	.factory('CreatorsService', ['$http' ,'apiConstants', '$q' ,function($http, apiConstants, $q) {
+	.factory('CreatorsService', ['$http' ,'apiConstants', '$q', 'localStorageService' ,function($http, apiConstants, $q, localStorage) {
 		var creatorsService = {};
 		
 		/**
 		 * Fetch all tags from api. 
 		 */
 		creatorsService.get = function() {
+			var url = apiConstants.url + 'creators';
+			var data = localStorage.get(url);
 			var deferred = $q.defer();
 			
-			var request = {
-				method: 'GET',
-				url: apiConstants.url + 'creators',
-				headers: {
-					'api-key': apiConstants.apiKey
-				}
-			};
+			// stale after 30 minutes
+			if (data && data.timestamp >= Date.now() - 1800000) {
+				deferred.resolve(createCreators(data.data.creators));
+			} else {
+				var request = {
+					method: 'GET',
+					url: url,
+					headers: {
+						'api-key': apiConstants.apiKey
+					}
+				};
+				$http(request)
+					.success(function(data, status, headers, config) {
+						dataToStorage = { timestamp: Date.now(), data: data };
+						localStorage.set(url, dataToStorage);
+						deferred.resolve(createCreators(data.creators));
+					})
+					.error(function(data, status, headers, config) {
+						deferred.reject("ERROR CREATORS");
+					});
+			}
 			
-			$http(request)
-				.success(function(data, status, headers, config) {
-					deferred.resolve(createCreators(data.creators));
-				})
-				.error(function(data, status, headers, config) {
-					deferred.reject("ERROR CREATORS");
-				});
-				
 			return deferred.promise;
 		};
 		
