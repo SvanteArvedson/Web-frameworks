@@ -44,7 +44,7 @@
 
 	<div id="storiesContainer" class="col-xs-12 col-md-6">
 		<div id="stories" class="panel panel-default">
-			<ul>
+			<ul data-ng-show="stories.stories.length > 0">
 				<li data-ng-click="stories.showInfoWindow(event, story)" data-ng-repeat="story in stories.stories">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -67,6 +67,7 @@
 					</div>
 				</li>
 			</ul>
+			<p data-ng-hide="stories.stories.length > 0">Inga berättelser att visa.</p>
 		</div>
 	</div>
 </div>

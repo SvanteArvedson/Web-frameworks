@@ -29,11 +29,9 @@ angular
 		};
 
 		vm.searchStories = function() {
-			if (vm.query) {
-				storiesService.search(vm.query).then(function(data) {
-					vm.stories = data;
-				});
-			}
+			storiesService.search(vm.query, vm.searchCreatorValue, vm.searchTagValue).then(function(data) {
+				vm.stories = data;
+			});
 		};
 		
 		// For map

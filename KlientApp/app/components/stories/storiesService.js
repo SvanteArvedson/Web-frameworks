@@ -31,8 +31,20 @@ angular
 		/**
 		 * Fetch all stories from api matching query. 
 		 */
-		storiesService.search = function(query) {
+		storiesService.search = function(query, creator, tag) {
 			var deferred = $q.defer();
+			
+			var params = {};
+			
+			if (query) {
+				params.query = query;
+			}
+			if (creator.id != 0) {
+				params.creator = creator.id;
+			}
+			if (tag.id != 0) {
+				params.tag = tag.id;
+			}
 			
 			var request = {
 				method: 'GET',
@@ -40,9 +52,7 @@ angular
 				headers: {
 					'api-key': apiConstants.apiKey
 				},
-	            params: {
-	                'query': query
-	            }
+	            params: params
 			};
 			
 			$http(request)
