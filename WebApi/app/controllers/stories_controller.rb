@@ -173,20 +173,19 @@ class StoriesController < ApplicationController
         fetched = true
       end
       if params['creator'].present?
-        unless fetched
+        if fetched
+          stories = stories.select { |x| x.creator_id.to_s == params['creator'] }
+        else
           stories = Creator.find(params['creator']).stories
           fetched = true
-        else
-          stories = stories.select { |x| x.creator_id === params['creator'] }
         end
       end
       if params['query'].present?
-        unless fetched
+        if fetched
+          stories = stories.select { |x| x.name.include? params['query'] or x.description.include? params['query'] }
+        else
           stories = Story.where("name LIKE ? OR description LIKE ?", "%" + params['query'] + "%", "%" + params['query'] + "%")
           fetched = true
-        else
-          # else, filter stories to only contain stories matching queries
-          stories = stories.select { |x| x.name.include? params['query'] or x.description.include? params['query'] }
         end
       end
       
