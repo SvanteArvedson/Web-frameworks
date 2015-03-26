@@ -158,15 +158,11 @@ class StoriesController < ApplicationController
   
   # returns a collection of stories matching a query (words, tag or/and creator)
   def search
+    stories = []
+    
     if params['query'].nil? && params['tag'].nil? && params['creator'].nil?
-      message = ErrorMessage.new(
-        "You must send a query, tag or creator to do a search", 
-        "You must send a query, tag or creator to do a search",
-        {}
-      )
-      render json: message, status: :bad_request
+      stories = Story.all
     else
-      stories = []
       fetched = false
       if params['tag'].present?
         stories = Tag.find(params['tag']).stories
@@ -187,25 +183,25 @@ class StoriesController < ApplicationController
           stories = Story.where("name LIKE ? OR description LIKE ?", "%" + params['query'] + "%", "%" + params['query'] + "%")
           fetched = true
         end
-      end
-      
-      # return result
-      story_collection = StoryCollection.new(stories)
-      respond = {
-        query: params['query'],
-        creator: params['creator'],
-        tag: params['tag'],
-        number_of_stories: story_collection.length,
-        urls: {
-          self: request.url,
-          all_creators: Rails.configuration.baseurl + creators_path,
-          all_stories: Rails.configuration.baseurl + stories_path,
-          all_tags: Rails.configuration.baseurl + tags_path
-          },
-        stories: story_collection.presentation
-        }
-      render json: respond
+      end   
     end
+    
+    # return result
+    story_collection = StoryCollection.new(stories)
+    respond = {
+      query: params['query'],
+      creator: params['creator'],
+      tag: params['tag'],
+      number_of_stories: story_collection.length,
+      urls: {
+        self: request.url,
+        all_creators: Rails.configuration.baseurl + creators_path,
+        all_stories: Rails.configuration.baseurl + stories_path,
+        all_tags: Rails.configuration.baseurl + tags_path
+        },
+      stories: story_collection.presentation
+      }
+    render json: respond
   end
   
   # returns a single story object
