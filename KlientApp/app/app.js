@@ -7,6 +7,11 @@ angular
 				controller: 'storiesController',
 				controllerAs: 'stories'
 			})
+			.when('/login', {
+				templateUrl: 'app/html/loginView.html',
+				controller: 'loginController',
+				controllerAs: 'login'
+			})
 			.otherwise({
           		redirectTo: '/'
         	});

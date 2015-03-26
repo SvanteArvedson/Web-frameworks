@@ -4,7 +4,7 @@ angular
 		return {
 			restrict: 'AE',
 			require: '^ngModel',
-			templateUrl: 'app/html/storyPresentation.html',
+			templateUrl: 'app/html/storyView.html',
 			scope: {
 				ngModel: '='
 			}

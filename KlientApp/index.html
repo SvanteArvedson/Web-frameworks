@@ -12,6 +12,18 @@
 
 	<body data-ng-app="clientApp">
 		<div class="container">
+			<div data-ng-controller="loginController as login" class="row">
+				<div class="text-right col-xs-12">
+					<div data-ng-hide="$root.isLoggedIn">
+						<a id="login" data-ng-href="login">Logga in</a>
+						<div id="loggedOut"></div>
+					</div>
+					<div data-ng-show="$root.isLoggedIn">
+						<a id="logout" data-ng-click="login.logout()">Logga ut</a>
+						<div id="loggedIn"></div>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<header class="col-xs-12">
 					<h1 class="page-header">Klientapplikation</h1>
@@ -34,6 +46,9 @@
      	<script src="app/app.js"></script>
      	<script src="app/directives/ngStory.js"></script>
      	<script src="app/services/constants/api.js"></script>
+     	
+     	<script src="app/services/factories/loginService.js"></script>
+     	<script src="app/controllers/loginController.js"></script>
      	
      	<script src="app/services/factories/creatorsService.js"></script>
      	<script src="app/services/factories/tagsService.js"></script>
