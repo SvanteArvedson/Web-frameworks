@@ -35,37 +35,18 @@
 
 	<div id="mapContainer" class="col-xs-12 col-md-6 panel panel-default">
 		<map id="mapCanvas" center="63, 17" zoom="5">
-			<marker data-ng-repeat="story in stories.stories" on-click="stories.showInfoWindow(event, story)" position="{{ story.position.latitude + ', ' + story.position.longitude }}" title="{{ story.name }}"></marker>
+			<marker data-ng-repeat="story in stories.stories track by $index" on-click="stories.showInfoWindow(event, story)" position="{{ story.position.latitude + ', ' + story.position.longitude }}" title="{{ story.name }}"></marker>
 		</map>
-
 	</div>
 
 	<div id="storiesContainer" class="col-xs-12 col-md-6">
 		<div id="stories" class="panel panel-default">
 			<ul data-ng-show="stories.stories.length > 0">
-				<li data-ng-click="stories.showInfoWindow(event, story)" data-ng-repeat="story in stories.stories">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 data-ng-bind="story.name"></h3>
-						</div>
-						<div class="panel-body">
-							<p>
-								<strong>Författare: </strong>
-								<span data-ng-bind="story.creator.email"></span>
-							</p>
-							<p>
-								<strong>Berättelse: </strong>
-								<span data-ng-bind="story.description"></span>
-							</p>
-							<p>
-								<strong>Taggar: </strong>
-								<span data-ng-repeat="tag in story.tags track by $index" data-ng-bind="tag.name + ' '"></span>
-							</p>
-						</div>
-					</div>
+				<li data-ng-click="stories.showInfoWindow(event, story)" data-ng-repeat="story in stories.stories track by $index">
+					<data-ng-story data-ng-model="story"></data-ng-story>
 				</li>
 			</ul>
-			<p data-ng-hide="stories.stories.length > 0">Inga berättelser att visa.</p>
+			<p class="text-center" data-ng-hide="stories.stories.length > 0">Inga berättelser att visa.</p>
 		</div>
 	</div>
 </div>

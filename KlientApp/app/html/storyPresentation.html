@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 data-ng-bind="ngModel.name"></h3>
+	</div>
+	<div class="panel-body">
+		<p>
+			<strong>Författare: </strong>
+			<span data-ng-bind="ngModel.creator.email"></span>
+		</p>
+		<p>
+			<strong>Berättelse: </strong>
+			<span data-ng-bind="ngModel.description"></span>
+		</p>
+		<p>
+			<strong>Taggar: </strong>
+			<span data-ng-repeat="tag in ngModel.tags track by $index" data-ng-bind="tag.name + ' '"></span>
+		</p>
+	</div>
+</div>

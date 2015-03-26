@@ -3,7 +3,7 @@ angular
 	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'app/components/stories/storiesView.html',
+				templateUrl: 'app/html/storiesView.html',
 				controller: 'storiesController',
 				controllerAs: 'stories'
 			})
