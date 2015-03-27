@@ -258,7 +258,7 @@ class StoriesController < ApplicationController
         message: "Story updated", 
         url: Rails.configuration.baseurl + story_path(s), 
         updated_at: s.updated_at 
-        }, status: :success
+        }
     else
       respond = ErrorMessage.new(
         "Unvalid data. Failed to update story.", 
