@@ -165,14 +165,29 @@ class StoriesController < ApplicationController
     else
       fetched = false
       if params['tag'].present?
+        id = Integer(params['tag']) rescue nil
+        if id.nil?
+          stories = Tag.find_by(name: params['tag']).stories
+        else
+          stories = Tag.find(params['tag']).stories
+        end
         stories = Tag.find(params['tag']).stories
         fetched = true
       end
       if params['creator'].present?
+        id = Integer(params['creator']) rescue nil
         if fetched
-          stories = stories.select { |x| x.creator_id.to_s == params['creator'] }
+          if id.nil?
+            stories = stories.select { |x| x.creator.email == params['creator'] }
+          else
+            stories = stories.select { |x| x.creator_id.to_s == params['creator'] }
+          end
         else
-          stories = Creator.find(params['creator']).stories
+          if id.nil?
+            stories = Creator.find_by(email: params['creator']).stories
+          else
+            stories = Creator.find(params['creator']).stories
+          end
           fetched = true
         end
       end
