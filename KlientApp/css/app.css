@@ -19,6 +19,17 @@
 	margin-bottom: 20px;
 }
 
+/* ------ Alert ------ */
+#infoMessage div div.alert {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+/* ------ Header ------ */
+header h1.page-header {
+	margin-top: 20px;
+}
+
 /* ------ Filter ------ */
 #filterPanel {
 	margin: 0;

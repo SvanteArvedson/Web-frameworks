@@ -1,5 +1,5 @@
 angular
-	.module('clientApp', ['ngRoute', 'ngMap', 'LocalStorageModule'])
+	.module('clientApp', ['ngRoute', 'ngMap', 'LocalStorageModule', 'MessageCenterModule'])
 	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {

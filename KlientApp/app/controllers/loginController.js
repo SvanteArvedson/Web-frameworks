@@ -1,10 +1,15 @@
 angular
 	.module('clientApp')
-	.controller('loginController', ['LoginService', 'localStorageService', '$location', '$rootScope', function(loginService, localStorage, $location, $rootScope) {
+	.controller('loginController', ['LoginService', 'localStorageService', '$location', '$rootScope', 'messageCenterService', function(loginService, localStorage, $location, $rootScope, messageCenterService) {
 		var vm = this;
-		var keySessionStorage = "authToken";
+		var keyAuthToken = "authToken";
 		
-		$rootScope.isLoggedIn = false;
+		// for checking if logged in
+		$rootScope.isLoggedIn = checkAuthToken();
+		
+		// for alert message
+		vm.visibleAlert = false;
+		vm.alertMessage = "";
 		
 		// for login form
 		vm.email = "";
@@ -12,32 +17,28 @@ angular
 		vm.login = function() {
 			loginService.login(vm.email, vm.password)
 				.success(function(data, status, headers, config) {
-					console.log($rootScope.isLoggedIn);
+					localStorage.set(keyAuthToken, data);
 					$rootScope.isLoggedIn = true;
+					messageCenterService.add('info', 'Du är inloggad', { status: messageCenterService.status.permanent });
 					// redirect to home
 					$location.path('/');
 				})
 				.error(function(data, status, headers, config) {
-					console.log(data);
+					vm.visibleAlert = true;
+					vm.alertMessage = "Felaktig epostadress och/eller lösenord.";
 				});
 		};
-		
 		vm.logout = function() {
-			localStorage.remove(keySessionStorage);
+			localStorage.remove(keyAuthToken);
 			$rootScope.isLoggedIn = false;
+			messageCenterService.add('info', 'Du är utloggad', { status: messageCenterService.status.permanent });
 		};
 		
 		/**
 		 * Checks if authToken exists and is valid. 
 		 */
-		 /*function checkAuthToken() {
-			var authToken = localStorage.get(keySessionStorage);
-			if (authToken && Date.now() <= Date.parse(authToken.terminates_at)) {
-				$rootScope.isLoggedIn = true;
-			} else {
-				$rootScope.isLoggedIn = false;
-			}
-			
-			return $rootScope.isLoggedIn;
-		};*/
+		 function checkAuthToken() {
+			var authToken = localStorage.get(keyAuthToken);
+			return (authToken && Date.now() <= Date.parse(authToken.terminates_at));
+		};
 	}]);
