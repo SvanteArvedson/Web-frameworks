@@ -17,6 +17,16 @@ angular
 				controller: 'storiesController',
 				controllerAs: 'stories'
 			})
+			.when('/newStory', {
+				templateUrl: 'app/html/newStoryView.html',
+				controller: 'newStoryController',
+				controllerAs: 'newStory'
+			})
+			.when('/editStory/:id', {
+				templateUrl: 'app/html/editStoryView.html',
+				controller: 'editStoryController',
+				controllerAs: 'editStory'
+			})
 			.otherwise({
           		redirectTo: '/'
         	});

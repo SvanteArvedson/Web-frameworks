@@ -1,0 +1,39 @@
+<form>
+	<input data-ng-model="story.id" type="hidden" value="{{ story.id }}" />
+	<div data-ng-show="visibleAlert" class="alert alert-danger alert-dismissable in fade" role="alert">
+		<button type="button" class="close", data-dismiss="alert" aria-label="Close">
+			<span>&times;</span>
+		</button>
+		<p><strong>FEL!</strong> {{ alertMessage }}</p>
+	</div>
+	<div class="form-group">
+		<label for="name">Titel</label>
+		<input data-ng-model="story.name" id="name" class="form-control" type="text" value="{{ story.name }}" required />
+	</div>
+	<div class="form-group">
+		<label for="description">Berättelse</label>
+		<textarea data-ng-model="story.description" id="description" class="form-control" rows="5" value="{{ story.description }}" required></textarea>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="form-group">
+				<label for="latitude">Position latitude</label>
+				<input data-ng-model="story.position.latitude" id="latitude" class="form-control" type="text" value="{{ story.position.latitude }}" required />
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="form-group">
+				<label for="longitude">Position longitude</label>
+				<input data-ng-model="story.position.longitude"  id="longitude" class="form-control" type="text" value="{{ story.position.longitude }}" required />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<a id="back" data-ng-href="myStories" class="btn btn-default">Tillbaka</a>
+		</div>
+		<div class="text-right col-xs-6">
+			<button type="submit" class="btn btn-primary">Skicka</button>
+		</div>
+	</div>
+</form>

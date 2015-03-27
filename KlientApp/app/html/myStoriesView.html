@@ -19,7 +19,7 @@
 						<td>{{ myStory.description }}</td>
 						<td>{{ myStory.position.latitude + ", " + myStory.position.longitude }}</td>
 						<td><span data-ng-repeat="tag in myStory.tags track by $index">{{ tag.name + " " }}</span></td>
-						<td><a>Ändra</a> | <a>Radera</a></td>
+						<td><a data-ng-href="editStory/{{myStory.id}}">Redigera</a> | <a>Radera</a></td>
 					</tr>
 				</tbody>
 			</table>

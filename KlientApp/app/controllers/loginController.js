@@ -35,6 +35,8 @@ angular
 			localStorage.remove(keyCurrentUser);
 			$rootScope.isLoggedIn = false;
 			messageCenterService.add('info', 'Du är utloggad', { status: messageCenterService.status.permanent });
+			
+			$location.path('/');
 		};
 		
 		/**

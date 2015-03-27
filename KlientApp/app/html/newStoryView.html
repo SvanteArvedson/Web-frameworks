@@ -1,0 +1,12 @@
+<div class="row">
+	<div id="newStoryContainer" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+		<div data-ng-show="$root.isLoggedIn">
+			<h2 class="text-center">Skapa ny berättelse</h2>
+			<data-ng-storyform></data-ng-storyform>
+		</div>
+		<div data-ng-hide="$root.isLoggedIn">
+			<h2 class="text-center">Skapa ny berättelse</h2>
+			<p class="text-center">Du måste logga in. <a data-ng-href="login">Logga in</a>.</p>
+		</div>
+	</div>
+</div>

@@ -10,8 +10,8 @@ function($http, apiConstants, $q, localStorage) {
 		var dataFromStorage = localStorage.get(url);
 		var deferred = $q.defer();
 
-		// stale after 30 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+		// stale after 2 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
 			deferred.resolve(createStories(dataFromStorage.data.stories));
 		} else {
 			var request = {
@@ -33,27 +33,65 @@ function($http, apiConstants, $q, localStorage) {
 
 		return deferred.promise;
 	};
+	
+	storiesService.getById = function(id) {
+		var url = apiConstants.url + 'stories/' + id;
+		var dataFromStorage = localStorage.get(url);
+		var deferred = $q.defer();
+		
+		// stale after 2 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
+			deferred.resolve(createStory(dataFromStorage.data.story));
+		} else {
+			var request = {
+				method : 'GET',
+				url : url,
+				headers : {
+					'api-key' : apiConstants.apiKey
+				}
+			};
+
+			$http(request).success(function(data, status, headers, config) {
+				dataToStorage = { timestamp: Date.now(), data: data };
+				localStorage.set(url, dataToStorage);
+				deferred.resolve(createStory(data.story));
+			}).error(function(data, status, headers, config) {
+				deferred.reject("ERROR STORY");
+			});
+		}
+		
+		return deferred.promise;
+	};
 
 	/**
 	 * Fetch all stories from api matching query.
 	 */
 	storiesService.search = function(query, creator, tag) {
 		var url = apiConstants.url + 'stories/search';
-		var dataFromStorage = localStorage.get(url + "-" + query + "-" + creator.id + "-" + tag.id);
+		var dataFromStorage = localStorage.get(url + "-" + query + "-" + creator.id || creator + "-" + tag.id);
 		var deferred = $q.defer();
 
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+		// stale after 2 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
 			deferred.resolve(createStories(dataFromStorage.data.stories));
 		} else {
 			var params = {};
 			if (query) {
 				params.query = query;
 			}
-			if (creator.id != 0) {
-				params.creator = creator.id;
+			if (creator && creator.id != 0) {
+				if (creator.id) {
+					params.creator = creator.id;
+				} else {
+					params.creator = creator;
+				}
 			}
-			if (tag.id != 0) {
-				params.tag = tag.id;
+			if (tag && tag.id != 0) {
+				if (tag.id) {
+					params.tag = tag.id;
+				} else {
+					params.tag = tag;
+				}
 			}
 			var request = {
 				method : 'GET',
