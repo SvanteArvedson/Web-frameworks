@@ -1,16 +1,4 @@
 /* ------ Login/Logout ------- */
-#loggedIn,
-#loggedOut {
-	display: inline-block;
-	width: 12px;
-	height: 12px;
-}
-#loggedIn {
-	background-color: #5cb85c;
-}
-#loggedOut {
-	background-color: #d9534f;
-}
 #logout {
 	cursor: pointer;
 }
@@ -26,8 +14,16 @@
 }
 
 /* ------ Header ------ */
-header h1.page-header {
+header a h1.page-header {
 	margin-top: 20px;
+}
+#headerLink {
+	color: inherit;
+}
+#headerLink:hover,
+#headerLink:active {
+	color: inherit;
+	text-decoration: none;
 }
 
 /* ------ Filter ------ */

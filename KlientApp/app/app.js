@@ -12,6 +12,11 @@ angular
 				controller: 'loginController',
 				controllerAs: 'login'
 			})
+			.when('/myStories', {
+				templateUrl: 'app/html/myStoriesView.html',
+				controller: 'storiesController',
+				controllerAs: 'stories'
+			})
 			.otherwise({
           		redirectTo: '/'
         	});

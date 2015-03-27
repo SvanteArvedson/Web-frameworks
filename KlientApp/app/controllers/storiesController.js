@@ -1,6 +1,6 @@
 angular
 	.module('clientApp')
-	.controller('storiesController', ['$scope', 'StoriesService', 'TagsService', 'CreatorsService', function($scope, storiesService, tagsService, creatorsService) {
+	.controller('storiesController', ['$scope', 'StoriesService', 'TagsService', 'CreatorsService', '$rootScope', 'localStorageService', function($scope, storiesService, tagsService, creatorsService, $rootScope, localStorage) {
 		var vm = this;
 		
 		// For search functionality
@@ -58,6 +58,14 @@ angular
 			infoWindow.setPosition(center);
 			infoWindow.open(vm.map);
 		};
+		
+		// if user is logged in
+		if ($rootScope.isLoggedIn)  {
+			var currentUser = localStorage.get("currentUser");
+			storiesService.search(null, currentUser, 0).then(function(data) {
+				vm.myStories = data;
+			});
+		}
 		
 		// Gets and display all stories
 		storiesService.get().then(function(data) {

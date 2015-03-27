@@ -3,6 +3,7 @@ angular
 	.controller('loginController', ['LoginService', 'localStorageService', '$location', '$rootScope', 'messageCenterService', function(loginService, localStorage, $location, $rootScope, messageCenterService) {
 		var vm = this;
 		var keyAuthToken = "authToken";
+		var keyCurrentUser = "currentUser";
 		
 		// for checking if logged in
 		$rootScope.isLoggedIn = checkAuthToken();
@@ -18,6 +19,7 @@ angular
 			loginService.login(vm.email, vm.password)
 				.success(function(data, status, headers, config) {
 					localStorage.set(keyAuthToken, data);
+					localStorage.set(keyCurrentUser, vm.email);
 					$rootScope.isLoggedIn = true;
 					messageCenterService.add('info', 'Du är inloggad', { status: messageCenterService.status.permanent });
 					// redirect to home
@@ -30,6 +32,7 @@ angular
 		};
 		vm.logout = function() {
 			localStorage.remove(keyAuthToken);
+			localStorage.remove(keyCurrentUser);
 			$rootScope.isLoggedIn = false;
 			messageCenterService.add('info', 'Du är utloggad', { status: messageCenterService.status.permanent });
 		};

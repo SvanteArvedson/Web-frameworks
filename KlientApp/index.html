@@ -16,11 +16,9 @@
 				<div class="text-right col-xs-12">
 					<div data-ng-hide="$root.isLoggedIn">
 						<a id="login" data-ng-href="login">Logga in</a>
-						<div id="loggedOut"></div>
 					</div>
 					<div data-ng-show="$root.isLoggedIn">
-						<a id="logout" data-ng-click="login.logout()">Logga ut</a>
-						<div id="loggedIn"></div>
+						<a data-ng-href=".">Startsidan</a> | <a id="myStories" data-ng-href="myStories">Mina berättelser</a> | <a id="logout" data-ng-click="login.logout()">Logga ut</a>
 					</div>
 				</div>
 			</div>
@@ -32,7 +30,7 @@
 			</div>
 			<div class="row">
 				<header class="col-xs-12">
-					<h1 class="page-header">Klientapplikation</h1>
+					<a id="headerLink" data-ng-href="."><h1 class="page-header">Klientapplikation</h1></a>
 				</header>
 			</div>
 			
