@@ -8,7 +8,7 @@ angular
 			scope: {
 				ngModel: '='
 			},
-			controller: ['$scope', '$http', 'apiConstants', 'localStorageService', 'messageCenterService', '$location', 'StoriesService', '$routeParams', function($scope, $http, apiConstants, localStorage, messageCenter, $location, storiesService, $routeParams) {
+			controller: ['$scope', '$http', 'apiConstants', 'localStorageService', 'messageCenterService', '$location', 'StoriesService', '$routeParams', '$rootScope', function($scope, $http, apiConstants, localStorage, messageCenter, $location, storiesService, $routeParams, $rootScope) {
 				$scope.visibleAlert = false;
 				$scope.alertMessage = "";
 				
@@ -40,6 +40,9 @@ angular
 					
 					$http(request)
 						.success(function(data, status, headers, config) {
+							$rootScope.listUpdated = true;
+							$rootScope.myListUpdated = true;
+							
 							messageCenter.add('success', 'Berättelsen skapades/redigerades.', { status: messageCenter.status.permanent });
 							// redirect to my stories
 							$location.path('/myStories');

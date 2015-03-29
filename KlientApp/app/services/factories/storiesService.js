@@ -5,14 +5,14 @@ function($http, apiConstants, $q, localStorage) {
 	/**
 	 * Fetch all stories from api.
 	 */
-	storiesService.get = function() {
+	storiesService.get = function(skipCache) {
 		var url = apiConstants.url + 'stories';
 		var dataFromStorage = localStorage.get(url);
 		var deferred = $q.defer();
 
-		// stale after 2 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
-			deferred.resolve(createStories(dataFromStorage.data.stories));
+		// stale after 30 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000 && skipCache == false) {
+			deferred.resolve(createStories(dataFromStorage.data.stories, skipCache));
 		} else {
 			var request = {
 				method : 'GET',
@@ -25,7 +25,7 @@ function($http, apiConstants, $q, localStorage) {
 			$http(request).success(function(data, status, headers, config) {
 				dataToStorage = { timestamp: Date.now(), data: data };
 				localStorage.set(url, dataToStorage);
-				deferred.resolve(createStories(data.stories));
+				deferred.resolve(createStories(data.stories, skipCache));
 			}).error(function(data, status, headers, config) {
 				deferred.reject("ERROR STORIES");
 			});
@@ -34,14 +34,14 @@ function($http, apiConstants, $q, localStorage) {
 		return deferred.promise;
 	};
 	
-	storiesService.getById = function(id) {
+	storiesService.getById = function(id, skipCache) {
 		var url = apiConstants.url + 'stories/' + id;
 		var dataFromStorage = localStorage.get(url);
 		var deferred = $q.defer();
 		
-		// stale after 2 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
-			deferred.resolve(createStory(dataFromStorage.data.story));
+		// stale after 30 minutes
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+			deferred.resolve(createStory(dataFromStorage.data.story, skipCache));
 		} else {
 			var request = {
 				method : 'GET',
@@ -54,7 +54,7 @@ function($http, apiConstants, $q, localStorage) {
 			$http(request).success(function(data, status, headers, config) {
 				dataToStorage = { timestamp: Date.now(), data: data };
 				localStorage.set(url, dataToStorage);
-				deferred.resolve(createStory(data.story));
+				deferred.resolve(createStory(data.story, skipCache));
 			}).error(function(data, status, headers, config) {
 				deferred.reject("ERROR STORY");
 			});
@@ -62,18 +62,40 @@ function($http, apiConstants, $q, localStorage) {
 		
 		return deferred.promise;
 	};
+	
+	storiesService.destroy = function(id, authToken) {
+		var url = apiConstants.url + 'stories/' + id;
+		var deferred = $q.defer();
+		
+		var request = {
+			method : 'DELETE',
+			url : url,
+			headers : {
+				'api-key' : apiConstants.apiKey,
+				'auth-token' : authToken
+			}
+		};
+
+		$http(request).success(function(data, status, headers, config) {
+			deferred.resolve(data.message);
+		}).error(function(data, status, headers, config) {
+			deferred.reject("ERROR DELETE STORY");
+		});
+		
+		return deferred.promise;
+	};
 
 	/**
 	 * Fetch all stories from api matching query.
 	 */
-	storiesService.search = function(query, creator, tag) {
+	storiesService.search = function(query, creator, tag, skipCache) {
 		var url = apiConstants.url + 'stories/search';
 		var dataFromStorage = localStorage.get(url + "-" + query + "-" + creator.id || creator + "-" + tag.id);
 		var deferred = $q.defer();
 
 		// stale after 2 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000) {
-			deferred.resolve(createStories(dataFromStorage.data.stories));
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 120000 && skipCache == false) {
+			deferred.resolve(createStories(dataFromStorage.data.stories, skipCache));
 		} else {
 			var params = {};
 			if (query) {
@@ -104,7 +126,7 @@ function($http, apiConstants, $q, localStorage) {
 			$http(request).success(function(data, status, headers, config) {
 				dataToStorage = { timestamp: Date.now(), data: data };
 				localStorage.set(url + "-" + query + "-" + creator.id + "-" + tag.id, dataToStorage);
-				deferred.resolve(createStories(data.stories));
+				deferred.resolve(createStories(data.stories, skipCache));
 			}).error(function(data, status, headers, config) {
 				deferred.reject("ERROR STORIES");
 			});
@@ -120,10 +142,10 @@ function($http, apiConstants, $q, localStorage) {
 	 * @param Array rawStories All stories from api.
 	 * @return Array An array with complete story objects
 	 */
-	function createStories(rawStories) {
+	function createStories(rawStories, skipCache) {
 		var ret = [];
 		rawStories.forEach(function(element, index, array) {
-			ret.push(createStory(element));
+			ret.push(createStory(element, skipCache));
 		});
 		return ret;
 	}
@@ -134,11 +156,11 @@ function($http, apiConstants, $q, localStorage) {
 	 * @param Object story A story object
 	 * @return Object A story object
 	 */
-	function createStory(story) {
-		getCreator(story.creator).then(function(data) {
+	function createStory(story, skipCache) {
+		getCreator(story.creator, skipCache).then(function(data) {
 			story.creator = data;
 		});
-		getTags(story.tags).then(function(data) {
+		getTags(story.tags, skipCache).then(function(data) {
 			story.tags = data;
 		});
 		return story;
@@ -149,12 +171,12 @@ function($http, apiConstants, $q, localStorage) {
 	 *
 	 * @param String urlToCreator
 	 */
-	function getCreator(urlToCreator) {
+	function getCreator(urlToCreator, skipCache) {
 		var dataFromStorage = localStorage.get(urlToCreator);
 		var deferred = $q.defer();
 
 		// stale after 30 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000 && skipCache == false) {
 			deferred.resolve(dataFromStorage.data.creator);
 		} else {
 			var request = {
@@ -181,12 +203,12 @@ function($http, apiConstants, $q, localStorage) {
 	 *
 	 * @param String urlToTags
 	 */
-	function getTags(urlToTags) {
+	function getTags(urlToTags, skipCache) {
 		var dataFromStorage = localStorage.get(urlToTags);
 		var deferred = $q.defer();
 
 		// stale after 30 minutes
-		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000) {
+		if (dataFromStorage && dataFromStorage.timestamp >= Date.now() - 1800000 && skipCache == false) {
 			deferred.resolve(dataFromStorage.data.tags);
 		} else {
 			var request = {

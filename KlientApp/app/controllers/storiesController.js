@@ -34,6 +34,23 @@ angular
 			});
 		};
 		
+		vm.destroy = function(id) {
+			if (confirm("Är du säker?")) {
+				var authToken = localStorage.get("authToken").auth_token;
+				
+				storiesService.destroy(id, authToken).then(function(data) {
+					$rootScope.listUpdated = true;
+					$rootScope.myListUpdated = true;
+					
+					var currentUser = localStorage.get("currentUser");
+					storiesService.search(null, currentUser, 0, $rootScope.myListUpdated).then(function(data) {
+						vm.myStories = data;
+						$rootScope.myListUpdated = false;
+					});
+				});
+			}
+		};
+		
 		// For map
 		$scope.$on('mapInitialized', function (event, map) {
             vm.map = map;
@@ -62,14 +79,18 @@ angular
 		// if user is logged in
 		if ($rootScope.isLoggedIn)  {
 			var currentUser = localStorage.get("currentUser");
-			storiesService.search(null, currentUser, 0).then(function(data) {
+			var flag = $rootScope.myListUpdated || false;
+			storiesService.search(null, currentUser, 0, flag).then(function(data) {
 				vm.myStories = data;
+				$rootScope.myListUpdated = false;
 			});
 		}
 		
 		// Gets and display all stories
-		storiesService.get().then(function(data) {
+		var flag = $rootScope.listUpdated || false;
+		storiesService.get(flag).then(function(data) {
 			vm.stories = data;
+			$rootScope.listUpdated = false;
 		});
 
 		// Gets all creators for select box
