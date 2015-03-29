@@ -8,11 +8,13 @@ för att klientapplikationen ska fungera.
 ###Registreringsapplikationen
 + Ladda ner koden till din RoR-miljö (katalogen *RegistrationApp*)
 + Kör kommandot *bundle install* för att installera de gems som applikationen använder
++ Kör kommandot *rake db:migrate* för att skapa databasen
 + Kör kommandot *rake db:seed* för att ladda databasen med testdata
 
 ###Webb api:et
 + Ladda ner koden till din RoR-miljö (katalogen *WebApi*)
 + Kör kommandot *bundle install* för att installera de gems som applikationen använder
++ Kör kommandot *rake db:migrate* för att skapa databasen
 + Kör kommandot *rake db:seed* för att ladda databasen med testdata
 + Kör kommandot *rails s* för att starta servern
 
