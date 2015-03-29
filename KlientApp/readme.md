@@ -18,7 +18,7 @@ för att klientapplikationen ska fungera.
 
 ###Klientapplikationen
 + Ladda ner koden till din Javascript-miljö (katalogen *KlientApp*)
-+ Byt ut basurl:en i filen *app/services/constants/api.js* och i taggen <base> i filen *index.html*
++ Byt ut basurl:en i filen *app/services/constants/api.js* och i base-taggen i head i filen *index.html*
 + Öppna applikationen i din webbläsare (notera att konfigurationen av url-anrop endast fungerar på apache.servar >= 2)
 
 ####Kontouppgifter
@@ -30,5 +30,5 @@ Jag fick ändra ganska mycket i min sökfunktionalitet. Tidigare hade jag endast
 möjligt att söka på ord som skulle matchas mot story.name och story.description men kom under 
 den här laborationen på att det även skulle vara bekvämt att kunna söka på berättelsernas 
 skapare och taggar också, och ännu mer att kunna söka på dessa parametrar i kombination. Detta 
-är nu möjligt att göra ch görs av min klientapplikation. I övrigt har jag endast ändrat buggar, 
-som att tillåta CORS och att skicka rätt svarskoder vid anrop.
+är nu möjligt att göra och görs av min klientapplikation. I övrigt har jag endast ändrat buggar, 
+exempelvis att tillåta CORS och att skicka rätt svarskoder vid anrop.
